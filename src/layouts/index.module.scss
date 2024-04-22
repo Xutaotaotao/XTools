@@ -1,0 +1,132 @@
+.rootSidenav {
+  align-items: flex-start;
+  background: var(--semi-color-bg-0);
+  flex-direction: column;
+  overflow: hidden;
+  row-gap: 0;
+  width: 100%;
+  display: flex;
+  color: var(--semi-color-text-0);
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 28px;
+  text-align: left;
+
+  .nav {
+    align-self: stretch;
+    height: 60px;
+
+    .navigationHeaderLogo {
+      align-items: flex-start;
+      column-gap: 0;
+      display: inline-flex;
+      flex-shrink: 0;
+
+      .semiIconsSemiLogo {
+        font-size: 36px;
+        color: var(--semi-color-text-0);
+      }
+    }
+
+    .dIV {
+      align-items: center;
+      column-gap: 16px;
+      display: inline-flex;
+      flex-shrink: 0;
+
+      .semiIconsFeishuLogo,
+      .semiIconsHelpCircle,
+      .semiIconsBell {
+        font-size: 20px;
+        color: var(--semi-color-text-2);
+      }
+
+      .avatar {
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
+
+  .main {
+    align-items: flex-start;
+    column-gap: 0;
+    display: flex;
+    flex-shrink: 0;
+    align-self: stretch;
+
+    .left {
+      height: calc(100vh - 60px);
+
+      .navItem,
+      .navItem5 {
+        width: 223px;
+
+        .iconIntro,
+        .iconRadio {
+          height: 20px;
+          position: relative;
+          width: 20px;
+        }
+      }
+
+      .navItem1,
+      .navItem2,
+      .navItem3,
+      .navItem4,
+      .navItem6,
+      .navItem7 {
+        width: 223px;
+
+        .iconHeart,
+        .iconCalendar,
+        .iconCheckbox,
+        .iconCalendar,
+        .iconList,
+        .iconToast {
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+
+    .right {
+      align-items: flex-start;
+      display: flex;
+      flex-basis: 0;
+      flex-direction: column;
+      padding: 40px 0px 0px 40px;
+      row-gap: 24px;
+      flex-grow: 1;
+
+      .item {
+        min-width: 90px;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+
+      .frame1321317607 {
+        align-items: center;
+        background: var(--semi-color-fill-0);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row;
+        height: 20px;
+        overflow: hidden;
+        padding: 220px 499px;
+        flex-shrink: 0;
+        color: var(--semi-color-disabled-text);
+        font-size: 14px;
+        letter-spacing: -0.14px;
+        line-height: 20px;
+
+        .yourContentHere {
+          vertical-align: middle;
+          min-width: 123px;
+        }
+      }
+    }
+  }
+}

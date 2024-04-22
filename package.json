@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "author": "Xutaotaotao <xutaotao852@hellobike.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "umi": "^4.1.10"
+  },
+  "devDependencies": {
+    "@douyinfe/semi-icons-lab": "^2.56.3",
+    "@douyinfe/semi-ui": "^2.56.3",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "typescript": "^5.0.3"
+  }
+}
