@@ -1,13 +1,26 @@
 import React from "react";
-import { Nav, Avatar } from '@douyinfe/semi-ui';
-import { IconSemiLogo, IconFeishuLogo, IconHelpCircle, IconBell } from '@douyinfe/semi-icons';
-import { IconIntro, IconHeart, IconCalendar, IconCheckbox, IconRadio, IconList, IconToast } from '@douyinfe/semi-icons-lab';
-import styles from './index.module.scss';
-import '@/assets/normalize.css'
-import { Outlet, useLocation } from "umi";
+import { Nav, Avatar, Layout, Breadcrumb } from "@douyinfe/semi-ui";
+import {
+  IconSemiLogo,
+  IconFeishuLogo,
+  IconHelpCircle,
+  IconBell,
+} from "@douyinfe/semi-icons";
+import { IconIntro, IconImage } from "@douyinfe/semi-icons-lab";
+import styles from "./index.module.scss";
+import "@/assets/normalize.css";
+import { Outlet, useLocation, history } from "umi";
 import Logo from "@/assets/img/logo1.svg";
+import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
 
-const Layout = () => {
+const { Content } = Layout;
+
+const NavMap = [
+  {itemKey: "/home", text: "首页", icon: <IconSemiLogo className={styles.iconIntro}/>, className: styles.navItem},
+  {itemKey: "/imageSlicing", text: "图片分割", icon: <IconImage className={styles.iconHeart}/>, className: styles.navItem1},
+]
+
+const XLayout = () => {
   const location = useLocation();
   return (
     <div className={styles.rootSidenav}>
@@ -18,8 +31,14 @@ const Layout = () => {
         }}
         footer={
           <div className={styles.dIV}>
-            <IconFeishuLogo size="large" className={styles.semiIconsFeishuLogo} />
-            <IconHelpCircle size="large" className={styles.semiIconsHelpCircle} />
+            <IconFeishuLogo
+              size="large"
+              className={styles.semiIconsFeishuLogo}
+            />
+            <IconHelpCircle
+              size="large"
+              className={styles.semiIconsHelpCircle}
+            />
             <IconBell size="large" className={styles.semiIconsBell} />
             <Avatar
               size="small"
@@ -32,72 +51,40 @@ const Layout = () => {
           </div>
         }
         className={styles.nav}
-      >
-      </Nav>
-      {
-        location.pathname === "/" ? <Outlet /> :  <div className={styles.main}>
-        <Nav
-          defaultOpenKeys={["user", "union"]}
-          mode="vertical"
-          footer={{ collapseButton: true }}
-          className={styles.left}
-        >
-          <Nav.Item
-            itemKey="Home"
-            text="Home"
-            icon={<IconIntro className={styles.iconIntro} />}
-            className={styles.navItem}
-          />
-          <Nav.Item
-            itemKey="Dashboard"
-            text="Dashboard"
-            icon={<IconHeart className={styles.iconHeart} />}
-            className={styles.navItem1}
-          />
-          <Nav.Item
-            itemKey="Project"
-            text="Project"
-            icon={<IconCalendar className={styles.iconCalendar} />}
-            className={styles.navItem2}
-          />
-          <Nav.Item
-            itemKey="Tasks"
-            text="Tasks"
-            icon={<IconCheckbox className={styles.iconCheckbox} />}
-            className={styles.navItem3}
-          />
-          <Nav.Item
-            itemKey="Reporting"
-            text="Reporting"
-            icon={<IconCalendar className={styles.iconCalendar} />}
-            className={styles.navItem4}
-          />
-          <Nav.Item
-            itemKey="Users"
-            text="Users"
-            icon={<IconRadio className={styles.iconRadio} />}
-            className={styles.navItem5}
-          />
-          <Nav.Item
-            itemKey="Support"
-            text="Support"
-            icon={<IconList className={styles.iconList} />}
-            className={styles.navItem6}
-          />
-          <Nav.Item
-            itemKey="Settings"
-            text="Settings"
-            icon={<IconToast className={styles.iconToast} />}
-            className={styles.navItem7}
-          />
-        </Nav>
-        <div className={styles.right}>
-          <Outlet />
+      ></Nav>
+      {location.pathname === "/" ? (
+        <Outlet />
+      ) : (
+        <div className={styles.main}>
+          <Nav
+            mode="vertical"
+            defaultSelectedKeys={["/home"]}
+            footer={{ collapseButton: true }}
+            className={styles.left}
+            selectedKeys={[location.pathname]}
+            onSelect={(item: OnSelectedData) => {
+              history.push(item.itemKey as string);
+            }}
+          >
+            {
+              NavMap.map((item) => (
+                <Nav.Item
+                  key={item.itemKey}
+                  itemKey={item.itemKey}
+                  text={item.text}  
+                  icon={item.icon}
+                  className={item.className}
+                />
+              ))
+            }
+          </Nav>
+          <Content className={styles.right}>
+            <Outlet />
+          </Content>
         </div>
-      </div>
-      }
+      )}
     </div>
   );
-}
+};
 
-export default Layout;
+export default XLayout;

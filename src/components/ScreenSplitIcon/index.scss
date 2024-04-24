@@ -1,0 +1,13 @@
+.screen-split-icon {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}

@@ -93,13 +93,10 @@
     }
 
     .right {
-      align-items: flex-start;
-      display: flex;
-      flex-basis: 0;
-      flex-direction: column;
-      padding: 40px 0px 0px 40px;
-      row-gap: 24px;
-      flex-grow: 1;
+      padding: 20px 20px 0px 20px;
+      overflow: auto;
+      height: calc(100vh - 60px);
+
 
       .item {
         min-width: 90px;

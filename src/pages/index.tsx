@@ -1,3 +1,4 @@
+import { Link } from "umi";
 
 export default function HomePage() {
   return (
@@ -6,7 +7,7 @@ export default function HomePage() {
       <p>
       </p>
       <p>
-        To get started, edit <code>pages/index.tsx</code> and save to reload.
+        <Link to="/home">home</Link>
       </p>
     </div>
   );
