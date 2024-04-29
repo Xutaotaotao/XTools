@@ -1,12 +1,8 @@
-import React from "react";
-import { Nav, Avatar, Layout, Breadcrumb } from "@douyinfe/semi-ui";
+import { Nav, Layout } from "@douyinfe/semi-ui";
 import {
   IconSemiLogo,
-  IconFeishuLogo,
-  IconHelpCircle,
-  IconBell,
 } from "@douyinfe/semi-icons";
-import { IconIntro, IconImage } from "@douyinfe/semi-icons-lab";
+import { IconImage } from "@douyinfe/semi-icons-lab";
 import styles from "./index.module.scss";
 import "@/assets/normalize.css";
 import { Outlet, useLocation, history } from "umi";
@@ -27,29 +23,8 @@ const XLayout = () => {
       <Nav
         mode="horizontal"
         header={{
-          text: <img src={Logo} alt="logo" className={styles.logo} />,
+          text: <img onClick={() => history.push("/")} src={Logo} alt="logo" className={styles.logo} />,
         }}
-        footer={
-          <div className={styles.dIV}>
-            <IconFeishuLogo
-              size="large"
-              className={styles.semiIconsFeishuLogo}
-            />
-            <IconHelpCircle
-              size="large"
-              className={styles.semiIconsHelpCircle}
-            />
-            <IconBell size="large" className={styles.semiIconsBell} />
-            <Avatar
-              size="small"
-              src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg"
-              color="blue"
-              className={styles.avatar}
-            >
-              示例
-            </Avatar>
-          </div>
-        }
         className={styles.nav}
       ></Nav>
       {location.pathname === "/" ? (

@@ -1,22 +1,19 @@
-import { Row, Col, Upload, UploadFile, Button } from "antd";
-import { useRef, useState } from "react";
+import { Row, Col, Upload, Button } from "antd";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Draggable from "react-draggable";
 import { InboxOutlined } from "@ant-design/icons";
-import { Form, Radio, RadioGroup } from "@douyinfe/semi-ui";
+import { Form, Radio, RadioGroup, Space } from "@douyinfe/semi-ui";
 import ScreenSplitIcon from "@/components/ScreenSplitIcon";
-import { IconSync } from "@douyinfe/semi-icons";
+import { IconSync, IconAlignBottom, IconAlignTop } from "@douyinfe/semi-icons";
 import { createRandomArray } from "@/utils";
+import "./index.scss";
 
 const { Dragger } = Upload;
 
-interface FileItem extends UploadFile {
-  dealData?: any;
-  originImgBuffer: ArrayBuffer;
-}
-interface Image {
-  new (): HTMLImageElement;
-}
+const FIXED_WIDTH = 600;
+const FIXED_HEIGHT = 800;
+
 interface RadioGroupItem {
   x: number;
   y: number;
@@ -41,93 +38,176 @@ const RadioGroupList: RadioGroupList = {
 
 const ImageSlicing = () => {
   const { t } = useTranslation();
+  const imageRef = useRef<HTMLImageElement>(null);
   const [fileList, setFileList] = useState<Array<any>>([]);
   const [currentImg, setCurrentImg] = useState("");
-
-  const [customX, setCustomX] = useState(0); // 自定义列数
-  const [customY, setCustomY] = useState(0); // 自定义行数
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [customX, setCustomX] = useState(0);
+  const [customY, setCustomY] = useState(0);
+  const [imgNaturalSize, setImgNaturalSize] = useState({ width: 0, height: 0 });
+  const [scale, setScale] = useState(1);
+  const [draggableListData, setDraggableListData] = useState<any[]>([]);
+  const [radioGroupValue, setRadioGroupValue] = useState("");
 
   const resetCustom = () => {
     setCustomX(0);
     setCustomY(0);
+    setRadioGroupValue("");
   };
 
   const filesChange = (info: any) => {
-    const hasFile = fileList.find(
-      (file: FileItem) => info.file.name === file.name
-    );
+    const hasFile = fileList.find((file) => info.file.name === file.name);
     if (hasFile) {
       return;
     } else {
       setFileList([info.file]);
       let reader = new FileReader();
       reader.readAsDataURL(info.file.originFileObj);
-      const img: any = document.createElement("img");
       reader.onload = function (e: any) {
-        setCurrentImg(img);
-        img.src = e.target.result;
-      };
-      img.onload = function () {
-        const canvas: any = canvasRef.current;
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
+        setCurrentImg(e.target.result);
       };
     }
   };
 
-  const handleDrag = (e: any, data: any) => {};
-
-
-  const renderDraggableList = (val: number, axis: "x" | "y" = "x") => {
-    if (val) {
-      const list = createRandomArray(val - 1);
-      const canvas: any = canvasRef.current;
-      const unitSize = (axis === "x" ? canvas.width : canvas.height) / (val + 1);
-      
-      return list.map((item, index) => {
-        const position = unitSize * (index + 1);
-        const lineStyle = axis === "x"
-          ? { width: '2px', height: '100%', top: 0, left: position,zIndex: 100 }
-          : { width: "100%", height: '2px', top: position, left: 0,zIndex: 100 };
-        
-        return (
-          <Draggable
-            axis={axis}
-            defaultPosition={axis === "x" ? { x: position, y: 0 } : { x: 0, y: position }}
-            handle={`.handle-${axis}-${index}`}
-            key={axis + item}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                ...lineStyle,
-                background: "red",
-              }}
-            >
-              <div
-                className={`handle-${axis}-${index}`}
-                style={{
-                  ...lineStyle,
-                  cursor: axis === "x" ? "ew-resize" : "ns-resize",
-                }}
-              />
-            </div>
-          </Draggable>
-        );
-      });
-    }
-    return null;
-  }
+  const handleDragOnStop = (e: any, data: any, key: string) => {
+    const { x, y } = data;
+    setDraggableListData(
+      draggableListData.map((item) => {
+        if (item.key === key) {
+          return {
+            ...item,
+            newPosition: { x, y },
+          };
+        }
+        return item;
+      })
+    );
+  };
 
   const radioGroupOnChange = (e: any) => {
     const { x, y } = RadioGroupList[e.target.value];
     setCustomX(x);
     setCustomY(y);
+    setRadioGroupValue(e.target.value);
   };
+
+  const reUpload = () => {
+    setFileList([]);
+    setCurrentImg("");
+    resetCustom();
+  };
+
+  const downloadSlice = (sliceData: any, fileName: string) => {
+    const link = document.createElement("a");
+    link.download = fileName;
+    link.href = sliceData;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const sliceImage = () => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context || !imageRef.current) {
+      return;
+    }
+    const imageWidth = imageRef.current.naturalWidth;
+    const imageHeight = imageRef.current.naturalHeight;
+
+    const xLines = draggableListData
+      .filter((item) => item.axis === "x")
+      .map((item) =>
+        item.newPosition ? item.newPosition.x : item.defaultPosition.x
+      )
+      .map((item) => Math.round(item / scale))
+      .concat(imageWidth)
+      .sort((a, b) => a - b);
+    console.log(xLines);
+    const yLines = draggableListData
+      .filter((item) => item.axis === "y")
+      .map((item) =>
+        item.newPosition ? item.newPosition.y : item.defaultPosition.y
+      )
+      .map((item) => Math.round(item / scale))
+      .concat(imageHeight)
+      .sort((a, b) => a - b);
+    for (let y = 0; y < yLines.length; y++) {
+      for (let x = 0; x < xLines.length; x++) {
+        const sliceX = x === 0 ? 0 : xLines[x - 1];
+        const sliceY = y === 0 ? 0 : yLines[y - 1];
+        const sliceWidth =
+          x === xLines.length - 1 ? imageWidth - sliceX : xLines[x] - sliceX;
+        const sliceHeight =
+          y === yLines.length - 1 ? imageHeight - sliceY : yLines[y] - sliceY;
+
+        canvas.width = sliceWidth;
+        canvas.height = sliceHeight;
+
+        context.drawImage(
+          imageRef.current,
+          sliceX,
+          sliceY,
+          sliceWidth,
+          sliceHeight,
+          0,
+          0,
+          sliceWidth,
+          sliceHeight
+        );
+
+        const sliceData = canvas.toDataURL("image/png");
+        downloadSlice(sliceData, `slice_${x}_${y}.png`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const xDraggableList = createRandomArray(customX - 1);
+    const yDraggableList = createRandomArray(customY - 1);
+    if (imageRef.current) {
+      const imageSize = {
+        width: imageRef.current.offsetWidth,
+        height: imageRef.current.offsetHeight,
+      };
+      const xUnitSize = imageSize.width / customX;
+      const yUnitSize = imageSize.height / customY;
+      setDraggableListData(
+        xDraggableList
+          .map((item, index) => {
+            const position = xUnitSize * (index + 1);
+            return {
+              axis: "x",
+              defaultPosition: { x: position, y: 0 },
+              handle: `handle-x-${item}`,
+              key: `x-${item}`,
+              lineStyle: {
+                width: 1,
+                height: imageSize.height,
+                zIndex: 100,
+              },
+            };
+          })
+          .concat(
+            yDraggableList.map((item, index) => {
+              const position = yUnitSize * (index + 1);
+              return {
+                axis: "y",
+                defaultPosition: { x: 0, y: position },
+                handle: `handle-y-${item}`,
+                key: `y-${item}`,
+                lineStyle: {
+                  width: imageSize.width,
+                  height: 1,
+                  zIndex: 100,
+                },
+              };
+            })
+          )
+      );
+    } else {
+      setDraggableListData([]);
+    }
+  }, [customX, customY, imageRef.current]);
 
   return (
     <Row>
@@ -138,6 +218,7 @@ const ImageSlicing = () => {
           aria-label="单选组合示例"
           name="demo-radio-group-pureCard"
           onChange={radioGroupOnChange}
+          value={radioGroupValue}
         >
           <Row>
             {Object.keys(RadioGroupList).map((key) => {
@@ -171,44 +252,135 @@ const ImageSlicing = () => {
           <Form.InputNumber field="yVal" label="自定义行" />
           <Form.InputNumber field="xVal" label="自定义列" />
         </Form>
-        <Button
-          style={{ width: "100%" }}
-          icon={<IconSync />}
-          aria-label="恢复原图"
-          onClick={resetCustom}
-        >
-          恢复原图
-        </Button>
+        <Space vertical style={{ width: "100%" }}>
+          {fileList.length && customX > 0 && customY > 0 ? (
+            <Button
+              style={{ width: "100%" }}
+              icon={<IconSync />}
+              aria-label="恢复原图"
+              onClick={resetCustom}
+              type="dashed"
+            >
+              恢复原图
+            </Button>
+          ) : null}
+
+          {fileList.length ? (
+            <Button
+              style={{ width: "100%" }}
+              icon={<IconAlignTop />}
+              aria-label="重新上传图片"
+              onClick={reUpload}
+            >
+              重新上传图片
+            </Button>
+          ) : null}
+
+          {fileList.length && customX > 0 && customY > 0 ? (
+            <Button
+              style={{ width: "100%" }}
+              icon={<IconAlignBottom />}
+              aria-label="重新上传图片"
+              onClick={sliceImage}
+              type="primary"
+            >
+              下载切割图片
+            </Button>
+          ) : null}
+        </Space>
       </Col>
       <Col span={17} offset={1}>
-        <div style={{ width: "100%", height: "100%" }}>
-          {fileList.length ? (
-            <>
-              <canvas
-                style={{ width: "100%", height: "100%",position: "relative" }}
-                ref={canvasRef}
-              />
-                {renderDraggableList(customX,'x')}
-                {renderDraggableList(customY,'y')}
-            </>
-          ) : (
-            <Dragger
-              name="file"
-              multiple
-              onChange={filesChange}
-              fileList={fileList}
-              customRequest={() => {}}
-              showUploadList={false}
+        {fileList.length ? (
+          <div className="image-container">
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: imgNaturalSize.width * scale,
+                height: imgNaturalSize.height * scale,
+                transformOrigin: "top left",
+              }}
             >
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">
-                {t("Click or drag file to this area to upload")}
-              </p>
-            </Dragger>
-          )}
-        </div>
+              <img
+                ref={imageRef}
+                src={currentImg}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
+                onLoad={(e) => {
+                  const imgElement = e.target as HTMLImageElement;
+                  const width = imgElement.naturalWidth;
+                  const height = imgElement.naturalHeight;
+                  const heightScale = FIXED_HEIGHT / height;
+                  const widthScale = FIXED_WIDTH / width;
+                  setScale(Math.min(heightScale, widthScale));
+                  setImgNaturalSize({
+                    width,
+                    height,
+                  });
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: imgNaturalSize.width * scale,
+                  height: imgNaturalSize.height * scale,
+                }}
+              >
+                {draggableListData.map(
+                  ({ axis, defaultPosition, handle, key, lineStyle }) => (
+                    <Draggable
+                      axis={axis}
+                      defaultPosition={defaultPosition}
+                      handle={`.${handle}`}
+                      key={key}
+                      onStop={(e, data) => {
+                        handleDragOnStop(e, data, key);
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          ...lineStyle,
+                          background: "red",
+                        }}
+                      >
+                        <div
+                          className={handle}
+                          style={{
+                            ...lineStyle,
+                            cursor: axis === "x" ? "ew-resize" : "ns-resize",
+                          }}
+                        />
+                      </div>
+                    </Draggable>
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <Dragger
+            name="file"
+            multiple
+            onChange={filesChange}
+            fileList={fileList}
+            customRequest={() => {}}
+            showUploadList={false}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              点击或拖拽上传图片
+            </p>
+          </Dragger>
+        )}
       </Col>
     </Row>
   );
