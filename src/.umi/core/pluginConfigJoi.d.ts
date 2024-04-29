@@ -3,5 +3,7 @@
 // Created by Umi Plugin
 
 export interface IConfigFromPluginsJoi {
+ghPages?: {
 
+}
 }
