@@ -6,8 +6,7 @@
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
-    "start": "npm run dev",
-    "deploy": "yarn run build && gh-pages -d dist"
+    "start": "npm run dev"
   },
   "dependencies": {
     "umi": "^4.1.10",
