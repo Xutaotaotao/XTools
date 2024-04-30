@@ -1,3 +1,5 @@
 # XTools
 
-XTools is a collection of tools for developers.
+## 专注工具，助力高效。
+
+## 完全本地化工具，无需云端，不担心隐私泄露
