@@ -1,4 +1,4 @@
-import { Nav, Layout } from "@douyinfe/semi-ui";
+import { Nav, Layout,Typography } from "@douyinfe/semi-ui";
 import {
   IconSemiLogo,
 } from "@douyinfe/semi-icons";
@@ -6,10 +6,12 @@ import { IconImage } from "@douyinfe/semi-icons-lab";
 import styles from "./index.module.scss";
 import "@/assets/normalize.css";
 import { Outlet, useLocation, history } from "umi";
-import Logo from "@/assets/img/logo1.svg";
+import Logo from "@/assets/img/XTools.svg";
 import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
 
 const { Content } = Layout;
+
+const {Title} = Typography
 
 const NavMap = [
   {itemKey: "/home", text: "首页", icon: <IconSemiLogo className={styles.iconIntro}/>, className: styles.navItem},
@@ -18,12 +20,23 @@ const NavMap = [
 
 const XLayout = () => {
   const location = useLocation();
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.style.display = 'none';
+  }
   return (
     <div className={styles.rootSidenav}>
       <Nav
         mode="horizontal"
         header={{
-          text: <img onClick={() => history.push("/")} src={Logo} alt="logo" className={styles.logo} />,
+          text: <div style={{display:'flex', alignItems:'end'}}>
+            <img onClick={() => history.push("/")} src={Logo} alt="logo" className={styles.logo} />
+            <img
+              style={{marginLeft: '10px'}}
+              src="https://visitor-badge.laobi.icu/badge?page_id=xutaotaotao.github.io.XTools"
+              onError={handleImageError}
+            />
+          </div> ,
         }}
         className={styles.nav}
       ></Nav>
