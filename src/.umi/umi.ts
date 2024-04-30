@@ -7,6 +7,7 @@ import { renderClient } from '/Users/xutaotao/Documents/s/XTools/node_modules/@u
 import { getRoutes } from './core/route';
 import { createPluginManager } from './core/plugin';
 import { createHistory } from './core/history';
+import Loading from '/Users/xutaotao/Documents/s/XTools/src/loading.tsx';
 import { ApplyPluginsType } from 'umi';
 
 
@@ -51,6 +52,7 @@ async function render() {
         routeComponents,
         pluginManager,
         rootElement: contextOpts.rootElement || document.getElementById('root'),
+        loadingComponent: Loading,
         publicPath,
         runtimePublicPath,
         history,

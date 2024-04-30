@@ -50,6 +50,7 @@ export function TestBrowser(props: TestBrowserProps) {
         routeComponents,
         pluginManager,
         rootElement: contextOpts.rootElement || document.getElementById('root'),
+        loadingComponent: Loading,
         publicPath,
         runtimePublicPath,
         history,
