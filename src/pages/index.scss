@@ -17,3 +17,7 @@
   border-radius: 6px;
 }
 
+.json-input{
+  height: calc(100vh - 100px) !important;
+  overflow-y: auto;
+}

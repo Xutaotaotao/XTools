@@ -2,20 +2,22 @@ import { Nav, Layout,Typography } from "@douyinfe/semi-ui";
 import {
   IconSemiLogo,
 } from "@douyinfe/semi-icons";
-import { IconImage } from "@douyinfe/semi-icons-lab";
+import { IconImage,IconIntro } from "@douyinfe/semi-icons-lab";
 import styles from "./index.module.scss";
 import "@/assets/normalize.css";
 import { Outlet, useLocation, history } from "umi";
-import Logo from "@/assets/img/XTools.svg";
 import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
+import Logo from "@/assets/img/XTools.svg";
+import JsonSvg from "@/assets/img/json.svg";
 
 const { Content } = Layout;
 
 const {Title} = Typography
 
 const NavMap = [
-  {itemKey: "/home", text: "首页", icon: <IconSemiLogo className={styles.iconIntro}/>, className: styles.navItem},
+  {itemKey: "/home", text: "首页", icon: <IconIntro className={styles.iconIntro}/>, className: styles.navItem},
   {itemKey: "/imageSlicing", text: "图片分割", icon: <IconImage className={styles.iconHeart}/>, className: styles.navItem1},
+  {itemKey: "/jsonFormatting", text: "JSON格式化", icon: <img src={JsonSvg} className={styles.iconHeart}/>, className: styles.navItem1},
 ]
 
 const XLayout = () => {
