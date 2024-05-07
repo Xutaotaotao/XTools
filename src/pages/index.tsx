@@ -1,8 +1,8 @@
 import { Button, Col,Space, Row } from "antd";
 import { Typography } from '@douyinfe/semi-ui';
 import { history } from "umi";
-import "./index.scss";
 import bigLogo from "@/assets/img/biglogo1.svg";
+import "./index.scss";
 const { Title } = Typography;
 
 

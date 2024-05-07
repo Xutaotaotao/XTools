@@ -1,8 +1,9 @@
-import { InboxOutlined } from "@ant-design/icons";
-import { Form,Button,Image } from "@douyinfe/semi-ui";
+import { useRef, useState } from "react";
 import { Card, Col, Row, Upload } from "antd";
 import Compressor from "compressorjs";
-import { useRef, useState } from "react";
+import { InboxOutlined } from "@ant-design/icons";
+import { Form,Button,Image } from "@douyinfe/semi-ui";
+
 
 const { Dragger } = Upload;
 

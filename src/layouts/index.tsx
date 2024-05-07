@@ -1,19 +1,15 @@
-import { Nav, Layout,Typography } from "@douyinfe/semi-ui";
-import {
-  IconSemiLogo,
-} from "@douyinfe/semi-icons";
+import { Nav, Layout } from "@douyinfe/semi-ui";
 import { IconImage,IconIntro } from "@douyinfe/semi-icons-lab";
-import styles from "./index.module.scss";
 import "@/assets/normalize.css";
 import { Outlet, useLocation, history } from "umi";
 import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
 import Logo from "@/assets/img/XTools.svg";
 import JsonSvg from "@/assets/img/json.svg";
 import ImageCompressSvg from "@/assets/img/imageCompress.svg";
+import styles from "./index.module.scss";
 
 const { Content } = Layout;
 
-const {Title} = Typography
 
 const NavMap = [
   {itemKey: "/home", text: "首页", icon: <IconIntro className={styles.iconIntro}/>, className: styles.navItem},
