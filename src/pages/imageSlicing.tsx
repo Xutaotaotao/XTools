@@ -210,8 +210,8 @@ const ImageSlicing = () => {
   }, [customX, customY, imageRef.current]);
 
   return (
-    <Row>
-      <Col span={5}>
+    <Row gutter={24}>
+      <Col lg={5} xs={24}>
         <RadioGroup
           type="pureCard"
           direction="horizontal"
@@ -289,7 +289,7 @@ const ImageSlicing = () => {
           ) : null}
         </Space>
       </Col>
-      <Col span={17} offset={1}>
+      <Col lg={19} xs={24}>
         {fileList.length ? (
           <div className="image-container">
             <div

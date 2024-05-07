@@ -69,8 +69,8 @@ export default function ImageCompress() {
   }
 
   return (
-    <Row gutter={16}>
-      <Col span={6}>
+    <Row gutter={[16, 16]}>
+      <Col lg={6} xs={24}>
         <Card
           title="设置"
           styles={{ body: { height: "calc(100vh - 150px", overflow: "auto" } }}
@@ -125,7 +125,7 @@ export default function ImageCompress() {
           </Form>
         </Card>
       </Col>
-      <Col span={18}>
+      <Col lg={18} xs={24}>
         {currentImg ? (
           <div style={{ height: "calc(100vh - 100px)", overflow: "auto" }}>
             <Card

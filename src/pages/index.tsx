@@ -18,8 +18,8 @@ export default function AppPage() {
 
   return (
     <div className="home-container">
-      <Row style={{width: '100%',padding:"0 120px",marginTop: 200}}>
-        <Col span={12} style={{ display: 'flex', justifyContent: 'center',flexDirection: 'column' }}>
+      <Row justify="center" align="middle" gutter={[20, 20]} style={{height:'100%'}}>
+        <Col xs={22} lg={10}>
           <Title >专注工具，助力高效</Title>
           <Title heading={5} style={{ marginTop: 20 }} >完全本地化工具，无需云端，不担心隐私泄露</Title>
           <Space style={{ marginTop: 20 }}>
@@ -27,7 +27,7 @@ export default function AppPage() {
           <Button onClick={goGithub} size="large" style={{ margin: '8px 0' }}>Github</Button>
           </Space>
         </Col>
-        <Col span={12} style={{textAlign: 'center' }}>
+        <Col xs={22} lg={10}>
           <img style={{ width: '90%' }} src={bigLogo} alt="logo" />
         </Col>
       </Row>
