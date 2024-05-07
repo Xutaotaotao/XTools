@@ -19,7 +19,7 @@ const JsonFormatting = () => {
 
   return <Row gutter={[16, 16]}>
     <Col span={10}>
-      <TextArea className="json-input" onChange={(e) => handleJsonData(e)}/>
+      <TextArea placeholder="请输入想要格式化的数据" className="json-input" onChange={(e) => handleJsonData(e)}/>
     </Col>
     <Col span={14}>
       <div className="json-input">

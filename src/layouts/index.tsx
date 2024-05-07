@@ -9,6 +9,7 @@ import { Outlet, useLocation, history } from "umi";
 import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
 import Logo from "@/assets/img/XTools.svg";
 import JsonSvg from "@/assets/img/json.svg";
+import ImageCompressSvg from "@/assets/img/imageCompress.svg";
 
 const { Content } = Layout;
 
@@ -18,6 +19,7 @@ const NavMap = [
   {itemKey: "/home", text: "首页", icon: <IconIntro className={styles.iconIntro}/>, className: styles.navItem},
   {itemKey: "/imageSlicing", text: "图片分割", icon: <IconImage className={styles.iconHeart}/>, className: styles.navItem1},
   {itemKey: "/jsonFormatting", text: "JSON格式化", icon: <img src={JsonSvg} className={styles.iconHeart}/>, className: styles.navItem1},
+  {itemKey: "/imageCompress", text: "图片压缩", icon: <img src={ImageCompressSvg} className={styles.iconHeart}/>, className: styles.navItem1},
 ]
 
 const XLayout = () => {

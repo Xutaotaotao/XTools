@@ -19,11 +19,12 @@ if (process.env.NODE_ENV === 'development') {
 import React from 'react';
 
 export async function getRoutes() {
-  const routes = {"jsonFormatting":{"path":"jsonFormatting","id":"jsonFormatting","parentId":"@@/global-layout"},"imageSlicing":{"path":"imageSlicing","id":"imageSlicing","parentId":"@@/global-layout"},"index":{"path":"/","id":"index","parentId":"@@/global-layout"},"docs":{"path":"docs","id":"docs","parentId":"@@/global-layout"},"home":{"path":"home","id":"home","parentId":"@@/global-layout"},"@@/global-layout":{"id":"@@/global-layout","path":"/","isLayout":true}} as const;
+  const routes = {"jsonFormatting":{"path":"jsonFormatting","id":"jsonFormatting","parentId":"@@/global-layout"},"imageCompress":{"path":"imageCompress","id":"imageCompress","parentId":"@@/global-layout"},"imageSlicing":{"path":"imageSlicing","id":"imageSlicing","parentId":"@@/global-layout"},"index":{"path":"/","id":"index","parentId":"@@/global-layout"},"docs":{"path":"docs","id":"docs","parentId":"@@/global-layout"},"home":{"path":"home","id":"home","parentId":"@@/global-layout"},"@@/global-layout":{"id":"@@/global-layout","path":"/","isLayout":true}} as const;
   return {
     routes,
     routeComponents: {
 'jsonFormatting': React.lazy(() => import(/* webpackChunkName: "src__pages__jsonFormatting" */'../../../src/pages/jsonFormatting.tsx')),
+'imageCompress': React.lazy(() => import(/* webpackChunkName: "src__pages__imageCompress" */'../../../src/pages/imageCompress.tsx')),
 'imageSlicing': React.lazy(() => import(/* webpackChunkName: "src__pages__imageSlicing" */'../../../src/pages/imageSlicing.tsx')),
 'index': React.lazy(() => import(/* webpackChunkName: "src__pages__index" */'../../../src/pages/index.tsx')),
 'docs': React.lazy(() => import(/* webpackChunkName: "src__pages__docs" */'../../../src/pages/docs.tsx')),
