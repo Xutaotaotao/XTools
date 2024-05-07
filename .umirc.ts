@@ -4,4 +4,5 @@ export default defineConfig({
   title: 'XTools',
   base: '/XTools/',
   publicPath: '/XTools/',
+  exportStatic: {},
 });
