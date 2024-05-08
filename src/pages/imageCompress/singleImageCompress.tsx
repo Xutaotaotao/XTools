@@ -74,7 +74,7 @@ export default function ImageCompress() {
       <Col lg={6} xs={24}>
         <Card
           title="设置"
-          styles={{ body: { height: "calc(100vh - 150px", overflow: "auto" } }}
+          styles={{ body: { height: "calc(100vh - 200px", overflow: "auto" } }}
         >
           <Form
             getFormApi={(formApi) => (api.current = formApi)}
@@ -128,7 +128,7 @@ export default function ImageCompress() {
       </Col>
       <Col lg={18} xs={24}>
         {currentImg ? (
-          <div style={{ height: "calc(100vh - 100px)", overflow: "auto" }}>
+          <div style={{ height: "calc(100vh - 170px)", overflow: "auto" }}>
             <Card
               title={`原图 【大小】：${file.size / 1024}KB`}
               styles={{ body: { textAlign: "center" } }}
@@ -156,7 +156,6 @@ export default function ImageCompress() {
         ) : (
           <Dragger
             name="file"
-            multiple
             onChange={filesChange}
             fileList={fileList}
             customRequest={() => {}}
