@@ -1,7 +1,4 @@
-import Logo from "@/assets/img/XTools.svg";
-import ImageCompressSvg from "@/assets/img/imageCompress.svg";
-import JsonSvg from "@/assets/img/json.svg";
-import "@/assets/normalize.css";
+import { Outlet, history, useLocation } from "umi";
 import {
   IconCustomerSupport,
   IconGithubLogo,
@@ -9,7 +6,11 @@ import {
 } from "@douyinfe/semi-icons";
 import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
 import { Button, Layout, Nav, Popover,Image, Row, Col } from "@douyinfe/semi-ui";
-import { Outlet, history, useLocation } from "umi";
+import Logo from "@/assets/img/XTools.svg";
+import ImageCompressSvg from "@/assets/img/imageCompress.svg";
+import JsonSvg from "@/assets/img/json.svg";
+import JsonDiffSvg from "@/assets/img/jsonDiff.svg";
+import "@/assets/normalize.css";
 import styles from "./index.module.scss";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -18,25 +19,31 @@ const NavMap = [
   {
     itemKey: "/home",
     text: "首页",
-    icon: <IconIntro className={styles.iconIntro} />,
+    icon: <IconIntro />,
     className: styles.navItem,
   },
   {
     itemKey: "/imageSlicing",
     text: "图片分割",
-    icon: <IconImage className={styles.iconHeart} />,
+    icon: <IconImage />,
     className: styles.navItem1,
   },
   {
     itemKey: "/jsonFormatting",
     text: "JSON格式化",
-    icon: <img src={JsonSvg} className={styles.iconHeart} />,
+    icon: <img src={JsonSvg} />,
+    className: styles.navItem1,
+  },
+  {
+    itemKey: "/jsonDiff",
+    text: "JSON对比",
+    icon: <img src={JsonDiffSvg} />,
     className: styles.navItem1,
   },
   {
     itemKey: "/imageCompress",
     text: "图片压缩",
-    icon: <img src={ImageCompressSvg} className={styles.iconHeart} />,
+    icon: <img src={ImageCompressSvg} />,
     className: styles.navItem1,
   },
 ];
