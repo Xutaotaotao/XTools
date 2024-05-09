@@ -10,6 +10,7 @@ import Logo from "@/assets/img/XTools.svg";
 import ImageCompressSvg from "@/assets/img/imageCompress.svg";
 import JsonSvg from "@/assets/img/json.svg";
 import JsonDiffSvg from "@/assets/img/jsonDiff.svg";
+import imgScanSvg from "@/assets/img/imgScan.svg";
 import "@/assets/normalize.css";
 import styles from "./index.module.scss";
 
@@ -21,12 +22,6 @@ const NavMap = [
     text: "首页",
     icon: <IconIntro />,
     className: styles.navItem,
-  },
-  {
-    itemKey: "/imageSlicing",
-    text: "图片分割",
-    icon: <IconImage />,
-    className: styles.navItem1,
   },
   {
     itemKey: "/jsonFormatting",
@@ -41,9 +36,21 @@ const NavMap = [
     className: styles.navItem1,
   },
   {
+    itemKey: "/imageSlicing",
+    text: "图片分割",
+    icon: <IconImage />,
+    className: styles.navItem1,
+  },
+  {
     itemKey: "/imageCompress",
     text: "图片压缩",
     icon: <img src={ImageCompressSvg} />,
+    className: styles.navItem1,
+  },
+  {
+    itemKey: "/imgScan",
+    text: "图片识别文字",
+    icon: <img src={imgScanSvg} />,
     className: styles.navItem1,
   },
 ];

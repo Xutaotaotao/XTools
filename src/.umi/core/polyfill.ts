@@ -216,5 +216,5 @@ import "/Users/xutaotao/Documents/s/XTools/node_modules/core-js/modules/web.url.
 import "/Users/xutaotao/Documents/s/XTools/node_modules/core-js/modules/web.url-search-params.delete.js";
 import "/Users/xutaotao/Documents/s/XTools/node_modules/core-js/modules/web.url-search-params.has.js";
 import "/Users/xutaotao/Documents/s/XTools/node_modules/core-js/modules/web.url-search-params.size.js";
-import '/Users/xutaotao/Documents/s/XTools/node_modules/@umijs/preset-umi/node_modules/regenerator-runtime/runtime.js';
+import '/Users/xutaotao/Documents/s/XTools/node_modules/regenerator-runtime/runtime.js';
 export {};

@@ -367,7 +367,6 @@ const ImageSlicing = () => {
         ) : (
           <Dragger
             name="file"
-            multiple
             onChange={filesChange}
             fileList={fileList}
             customRequest={() => {}}
