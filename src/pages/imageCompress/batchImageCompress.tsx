@@ -1,7 +1,7 @@
 import { InboxOutlined } from "@ant-design/icons";
 import { IconAlignBottom } from "@douyinfe/semi-icons";
-import { Button, Form, Image, Table } from "@douyinfe/semi-ui";
-import { Col, Row, Space, Upload,Spin, message } from "antd";
+import { Button, Form, Image } from "@douyinfe/semi-ui";
+import { Col, Row, Space, Spin, Table, Upload, message } from "antd";
 import Compressor from "compressorjs";
 import { useRef, useState } from "react";
 
@@ -15,14 +15,14 @@ export default function BatchImageCompress() {
   const [spinningStatus, setSpinningStatus] = useState({
     spinning: false,
     tip: "",
-  })
+  });
 
   const filesChange = (info: any) => {
     const { fileList } = info;
     setSpinningStatus({
       spinning: true,
-      tip: "选取图片中，请稍后..."
-    })
+      tip: "选取图片中，请稍后...",
+    });
     const updatedFileList = fileList.map((file: any) => {
       const reader = new FileReader();
       return new Promise((resolve) => {
@@ -34,14 +34,16 @@ export default function BatchImageCompress() {
         reader.readAsDataURL(file.originFileObj);
       });
     });
-    Promise.all(updatedFileList).then((files) => {
-      setFileList(files);
-    }).finally(() => {
-      setSpinningStatus({
-        spinning: false,
-        tip: "",
+    Promise.all(updatedFileList)
+      .then((files) => {
+        setFileList(files);
       })
-    })
+      .finally(() => {
+        setSpinningStatus({
+          spinning: false,
+          tip: "",
+        });
+      });
   };
 
   const downLoad = (record: any) => {
@@ -55,6 +57,7 @@ export default function BatchImageCompress() {
     {
       title: "标题",
       dataIndex: "name",
+      width: 300,
       render: (text: string, record: any, index: number) => {
         return (
           <div>
@@ -94,6 +97,7 @@ export default function BatchImageCompress() {
     },
     {
       title: "压缩后图片",
+      width: 200,
       dataIndex: "compressRate",
       render: (text: string, record: any, index: number) => {
         return (
@@ -134,8 +138,8 @@ export default function BatchImageCompress() {
   const startCompress = () => {
     setSpinningStatus({
       spinning: true,
-      tip: "压缩中，请稍后..."
-    })
+      tip: "压缩中，请稍后...",
+    });
     const compressingPromise = fileList.map((file: any) => {
       return new Promise((resolve) => {
         new Compressor(file.originFileObj, {
@@ -155,79 +159,85 @@ export default function BatchImageCompress() {
         });
       });
     });
-    Promise.all(compressingPromise).then((result) => {
-      setFileList(result);
-      message.success("压缩成功");
-    }).finally(() => {
-      setSpinningStatus({
-        spinning: false,
-        tip: "",
+    Promise.all(compressingPromise)
+      .then((result) => {
+        setFileList(result);
+        message.success("压缩成功");
       })
-    })
+      .finally(() => {
+        setSpinningStatus({
+          spinning: false,
+          tip: "",
+        });
+      });
   };
 
   return (
-    <div style={{ height: "calc(100vh - 170px)" }}>
-       <Spin spinning={spinningStatus.spinning} tip={spinningStatus.tip} style={{ width: "100%",height: "100%" }}>
+    <div style={{ height: "calc(100vh - 170px)",width: "100%" }}>
+      <Spin
+        spinning={spinningStatus.spinning}
+        tip={spinningStatus.tip}
+        style={{ width: "100%", height: "100%" }}
+      >
         <Row gutter={[16, 16]} style={{ height: "100%" }}>
-            {fileList.length > 0 ? (
-              <div style={{ height: "100%", width: "100%", padding: "16px" }}>
-                <Row gutter={[16, 16]} justify={"space-between"} align={"middle"}>
-                  <Col span={12}>
-                    <Form
-                      getFormApi={(formApi) => (api.current = formApi)}
-                      labelPosition="left"
-                      initValues={{ quality: 0.6 }}
+          {fileList.length > 0 ? (
+            <div style={{ height: "100%", width: "100%", padding: "16px" }}>
+              <Row gutter={[16, 16]} justify={"space-between"} align={"middle"}>
+                <Col span={12}>
+                  <Form
+                    getFormApi={(formApi) => (api.current = formApi)}
+                    labelPosition="left"
+                    initValues={{ quality: 0.6 }}
+                  >
+                    <Form.InputNumber
+                      min={0}
+                      max={1}
+                      field="quality"
+                      label="压缩质量"
+                      defaultValue={0.6}
+                    ></Form.InputNumber>
+                  </Form>
+                </Col>
+                <Col span={12} style={{ textAlign: "right" }}>
+                  <Space>
+                    <Button onClick={() => setFileList([])}>
+                      重新上传图片
+                    </Button>
+                    <Button
+                      theme="solid"
+                      type="primary"
+                      onClick={startCompress}
                     >
-                      <Form.InputNumber
-                        min={0}
-                        max={1}
-                        field="quality"
-                        label="压缩质量"
-                        defaultValue={0.6}
-                      ></Form.InputNumber>
-                    </Form>
-                  </Col>
-                  <Col span={12} style={{ textAlign: "right" }}>
-                    <Space>
-                      <Button onClick={() => setFileList([])}>重新上传图片</Button>
-                      <Button
-                        theme="solid"
-                        type="primary"
-                        onClick={startCompress}
-                      >
-                        开始压缩
-                      </Button>
-                    </Space>
-                  </Col>
-                </Row>
+                      开始压缩
+                    </Button>
+                  </Space>
+                </Col>
+              </Row>
                 <Table
                   rowKey={"name"}
-                  style={{ marginTop: 16 }}
                   columns={columns}
                   dataSource={fileList}
                   pagination={false}
-                  // rowSelection={rowSelection}
+                  scroll={{y: 'calc(100vh - 300px)'}}
                 />
-              </div>
-            ) : (
-              <Col span={24} style={{ height: "40vh" }}>
-                <Dragger
-                  name="file"
-                  multiple
-                  onChange={filesChange}
-                  fileList={fileList}
-                  customRequest={() => {}}
-                  showUploadList={false}
-                >
-                  <p className="ant-upload-drag-icon">
-                    <InboxOutlined />
-                  </p>
-                  <p className="ant-upload-text">点击或拖拽上传图片</p>
-                </Dragger>
-              </Col>
-            )}
-        
+            </div>
+          ) : (
+            <Col span={24} style={{ height: "40vh" }}>
+              <Dragger
+                name="file"
+                multiple
+                onChange={filesChange}
+                fileList={fileList}
+                customRequest={() => {}}
+                showUploadList={false}
+              >
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">点击或拖拽上传图片</p>
+              </Dragger>
+            </Col>
+          )}
         </Row>
       </Spin>
     </div>

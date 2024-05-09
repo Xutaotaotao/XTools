@@ -1,77 +1,151 @@
-import { Nav, Layout } from "@douyinfe/semi-ui";
-import { IconImage,IconIntro } from "@douyinfe/semi-icons-lab";
-import "@/assets/normalize.css";
-import { Outlet, useLocation, history } from "umi";
-import { OnSelectedData } from "@douyinfe/semi-ui/lib/es/navigation";
 import Logo from "@/assets/img/XTools.svg";
-import JsonSvg from "@/assets/img/json.svg";
 import ImageCompressSvg from "@/assets/img/imageCompress.svg";
+import JsonSvg from "@/assets/img/json.svg";
+import "@/assets/normalize.css";
+import {
+  IconCustomerSupport,
+  IconGithubLogo,
+  IconLikeHeart,
+} from "@douyinfe/semi-icons";
+import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
+import { Button, Layout, Nav, Popover,Image, Row, Col } from "@douyinfe/semi-ui";
+import { Outlet, history, useLocation } from "umi";
 import styles from "./index.module.scss";
 
-const { Content } = Layout;
-
+const { Header, Footer, Sider, Content } = Layout;
 
 const NavMap = [
-  {itemKey: "/home", text: "首页", icon: <IconIntro className={styles.iconIntro}/>, className: styles.navItem},
-  {itemKey: "/imageSlicing", text: "图片分割", icon: <IconImage className={styles.iconHeart}/>, className: styles.navItem1},
-  {itemKey: "/jsonFormatting", text: "JSON格式化", icon: <img src={JsonSvg} className={styles.iconHeart}/>, className: styles.navItem1},
-  {itemKey: "/imageCompress", text: "图片压缩", icon: <img src={ImageCompressSvg} className={styles.iconHeart}/>, className: styles.navItem1},
-]
+  {
+    itemKey: "/home",
+    text: "首页",
+    icon: <IconIntro className={styles.iconIntro} />,
+    className: styles.navItem,
+  },
+  {
+    itemKey: "/imageSlicing",
+    text: "图片分割",
+    icon: <IconImage className={styles.iconHeart} />,
+    className: styles.navItem1,
+  },
+  {
+    itemKey: "/jsonFormatting",
+    text: "JSON格式化",
+    icon: <img src={JsonSvg} className={styles.iconHeart} />,
+    className: styles.navItem1,
+  },
+  {
+    itemKey: "/imageCompress",
+    text: "图片压缩",
+    icon: <img src={ImageCompressSvg} className={styles.iconHeart} />,
+    className: styles.navItem1,
+  },
+];
 
 const XLayout = () => {
   const location = useLocation();
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.style.display = 'none';
-  }
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    e.currentTarget.style.display = "none";
+  };
   return (
-    <div className={styles.rootSidenav}>
-      <Nav
-        mode="horizontal"
-        header={{
-          text: <div style={{display:'flex', alignItems:'end'}}>
-            <img onClick={() => history.push("/")} src={Logo} alt="logo" className={styles.logo} />
-            <img
-              style={{marginLeft: '10px'}}
-              src="https://visitor-badge.laobi.icu/badge?page_id=xutaotaotao.github.io.XTools"
-              onError={handleImageError}
-            />
-          </div> ,
-        }}
-        className={styles.nav}
-      ></Nav>
+    <Layout>
+      <Header style={{ backgroundColor: "var(--semi-color-bg-1)" }}>
+        <div>
+          <Nav mode="horizontal" defaultSelectedKeys={["Home"]}>
+            <Nav.Header>
+              <div style={{ display: "flex", alignItems: "end" }}>
+                <img
+                  onClick={() => history.push("/")}
+                  src={Logo}
+                  alt="logo"
+                  style={{ height: "48px", cursor: "pointer" }}
+                />
+                <img
+                  style={{ marginLeft: "10px" }}
+                  src="https://visitor-badge.laobi.icu/badge?page_id=xutaotaotao.github.io.XTools"
+                  onError={handleImageError}
+                />
+              </div>
+            </Nav.Header>
+            <Nav.Footer>
+              <Popover content={<div style={{padding: "12px"}}>
+                <Row gutter={16}>
+                  <Col span={12} style={{textAlign: "center"}}>
+                    <div>微信扫码赞助</div>
+                    <Image width={250} src="https://taotaoxu.com/payment/IMG_5471.jpeg" />
+                  </Col>
+                  <Col span={12} style={{textAlign: "center"}}>
+                  <div>支付宝扫码赞助</div>
+                  <Image width={250} src="https://taotaoxu.com/payment/IMG_5472.jpg"/>
+                  </Col>
+                </Row>
+              </div>}>
+              <Button
+                theme="borderless"
+                icon={<IconLikeHeart size="large" />}
+                style={{
+                  color: "var(--semi-color-text-2)",
+                  marginRight: "12px",
+                }}
+              />
+              </Popover>
+              
+              <Button
+                theme="borderless"
+                icon={<IconCustomerSupport size="large" />}
+                style={{
+                  color: "var(--semi-color-text-2)",
+                  marginRight: "12px",
+                }}
+                onClick={() => {window.open("https://github.com/xutaotaotao/XTools/issues")}}
+              />
+              <Button
+                theme="borderless"
+                icon={<IconGithubLogo size="large" />}
+                style={{
+                  color: "var(--semi-color-text-2)",
+                  marginRight: "12px",
+                }}
+                onClick={() => {window.open("https://github.com/xutaotaotao/XTools")}}
+              />
+            </Nav.Footer>
+          </Nav>
+        </div>
+      </Header>
       {location.pathname === "/" ? (
         <Outlet />
       ) : (
-        <div className={styles.main}>
-          <Nav
-            mode="vertical"
-            defaultSelectedKeys={["/home"]}
-            footer={{ collapseButton: true }}
-            className={styles.left}
-            selectedKeys={[location.pathname]}
-            onSelect={(item: OnSelectedData) => {
-              history.push(item.itemKey as string);
+        <Layout>
+          <Sider style={{ backgroundColor: "var(--semi-color-bg-1)" }}>
+            <Nav
+              style={{ maxWidth: 220, height: "100%" }}
+              defaultSelectedKeys={["/home"]}
+              selectedKeys={[location.pathname]}
+              onSelect={(item: any) => {
+                history.push(item.itemKey as string);
+              }}
+              items={NavMap}
+              footer={{
+                collapseButton: true,
+              }}
+            />
+          </Sider>
+          <Content
+            style={{
+              height: "calc(100vh - 60px)",
+              boxSizing: "border-box",
+              overflow: "hidden",
+              padding: "12px",
+              backgroundColor: "var(--semi-color-bg-0)",
             }}
           >
-            {
-              NavMap.map((item) => (
-                <Nav.Item
-                  key={item.itemKey}
-                  itemKey={item.itemKey}
-                  text={item.text}  
-                  icon={item.icon}
-                  className={item.className}
-                />
-              ))
-            }
-          </Nav>
-          <Content className={styles.right}>
             <Outlet />
           </Content>
-        </div>
+        </Layout>
       )}
-    </div>
+    </Layout>
   );
 };
 
