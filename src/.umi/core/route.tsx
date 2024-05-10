@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
 import React from 'react';
 
 export async function getRoutes() {
-  const routes = {"imageCompress/singleImageCompress":{"path":"imageCompress/singleImageCompress","id":"imageCompress/singleImageCompress","parentId":"@@/global-layout"},"imageCompress/batchImageCompress":{"path":"imageCompress/batchImageCompress","id":"imageCompress/batchImageCompress","parentId":"@@/global-layout"},"imageCompress/index":{"path":"imageCompress","id":"imageCompress/index","parentId":"@@/global-layout"},"jsonFormatting":{"path":"jsonFormatting","id":"jsonFormatting","parentId":"@@/global-layout"},"imageSlicing":{"path":"imageSlicing","id":"imageSlicing","parentId":"@@/global-layout"},"jsonDiff":{"path":"jsonDiff","id":"jsonDiff","parentId":"@@/global-layout"},"imgScan":{"path":"imgScan","id":"imgScan","parentId":"@@/global-layout"},"index":{"path":"/","id":"index","parentId":"@@/global-layout"},"docs":{"path":"docs","id":"docs","parentId":"@@/global-layout"},"home":{"path":"home","id":"home","parentId":"@@/global-layout"},"@@/global-layout":{"id":"@@/global-layout","path":"/","isLayout":true}} as const;
+  const routes = {"imageCompress/singleImageCompress":{"path":"imageCompress/singleImageCompress","id":"imageCompress/singleImageCompress","parentId":"@@/global-layout"},"imageCompress/batchImageCompress":{"path":"imageCompress/batchImageCompress","id":"imageCompress/batchImageCompress","parentId":"@@/global-layout"},"imageCompress/index":{"path":"imageCompress","id":"imageCompress/index","parentId":"@@/global-layout"},"jsonFormatting":{"path":"jsonFormatting","id":"jsonFormatting","parentId":"@@/global-layout"},"imageSlicing":{"path":"imageSlicing","id":"imageSlicing","parentId":"@@/global-layout"},"jsonDiff":{"path":"jsonDiff","id":"jsonDiff","parentId":"@@/global-layout"},"imgScan":{"path":"imgScan","id":"imgScan","parentId":"@@/global-layout"},"index":{"path":"/","id":"index","parentId":"@@/global-layout"},"home":{"path":"home","id":"home","parentId":"@@/global-layout"},"@@/global-layout":{"id":"@@/global-layout","path":"/","isLayout":true}} as const;
   return {
     routes,
     routeComponents: {
@@ -31,7 +31,6 @@ export async function getRoutes() {
 'jsonDiff': React.lazy(() => import(/* webpackChunkName: "src__pages__jsonDiff" */'../../../src/pages/jsonDiff.tsx')),
 'imgScan': React.lazy(() => import(/* webpackChunkName: "src__pages__imgScan" */'../../../src/pages/imgScan.tsx')),
 'index': React.lazy(() => import(/* webpackChunkName: "src__pages__index" */'../../../src/pages/index.tsx')),
-'docs': React.lazy(() => import(/* webpackChunkName: "src__pages__docs" */'../../../src/pages/docs.tsx')),
 'home': React.lazy(() => import(/* webpackChunkName: "src__pages__home" */'../../../src/pages/home.tsx')),
 '@@/global-layout': React.lazy(() => import(/* webpackChunkName: "layouts__index" */'/Users/xutaotao/Documents/s/XTools/src/layouts/index.tsx')),
 },

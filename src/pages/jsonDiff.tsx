@@ -1,9 +1,9 @@
 import { Button } from "@douyinfe/semi-ui";
 import { Col, Input, Row, Space, message } from "antd";
 import { Differ, Viewer } from "json-diff-kit";
+import { useEffect, useState } from "react";
 import "json-diff-kit/dist/viewer.css";
-import { debounce } from "lodash";
-import { useEffect, useRef, useState } from "react";
+
 
 const { TextArea } = Input;
 
@@ -22,7 +22,6 @@ export default function JsonDiff() {
     indent:4,
     lineNumbers: true,
     highlightInlineDiff: true,
-
   };
 
   useEffect(() => {

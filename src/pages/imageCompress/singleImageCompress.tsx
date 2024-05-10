@@ -1,76 +1,92 @@
-import { useRef, useState } from "react";
+import { InboxOutlined } from "@ant-design/icons";
+import { Button, Form, Image } from "@douyinfe/semi-ui";
+import { FormApi } from "@douyinfe/semi-ui/lib/es/form";
+import type { UploadFile, UploadProps } from "antd";
 import { Card, Col, Row, Upload } from "antd";
 import Compressor from "compressorjs";
-import { InboxOutlined } from "@ant-design/icons";
-import { Form,Button,Image } from "@douyinfe/semi-ui";
-
+import { useRef, useState } from "react";
 
 const { Dragger } = Upload;
 
+interface CompressorOptions {
+  strict?: boolean;
+  checkOrientation?: boolean;
+  retainExif?: boolean;
+  maxWidth?: number;
+  maxHeight?: number;
+  minWidth?: number;
+  minHeight?: number;
+  width?: number;
+  height?: number;
+  resize?: "none" | "cover" | "contain";
+  quality?: number;
+}
+
 export default function ImageCompress() {
-  const [fileList, setFileList] = useState<Array<any>>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [currentImg, setCurrentImg] = useState<string>("");
   const [compressingImg, setCompressingImg] = useState<string>("");
-  const [file, setFile] = useState<any>();
+  const [file, setFile] = useState<UploadFile>();
   const [compressingFile, setCompressingFile] = useState<any>();
-  const api = useRef<any>();
+  const api = useRef<FormApi>();
 
-  const filesChange = (info: any) => {
+  const filesChange: UploadProps["onChange"] = (info) => {
     setFile(info.file);
     let reader = new FileReader();
-    reader.readAsDataURL(info.file.originFileObj);
-    reader.onload = function (e: any) {
-      setCurrentImg(e.target.result);
-    };
-    const options = api.current.getValues();
-    new Compressor(info.file.originFileObj, {
-      ...options,
-      success: (result) => {
-        console.log(result);
-        setCompressingFile(result);
-        let reader = new FileReader();
-        reader.readAsDataURL(result);
-        reader.onload = function (e: any) {
-          setCompressingImg(e.target.result);
-        };
-      },
-    });
+    if (info.file.originFileObj) {
+      reader.readAsDataURL(info.file.originFileObj);
+      reader.onload = function (e: any) {
+        setCurrentImg(e.target.result);
+      };
+      const options = api?.current?.getValues();
+      new Compressor(info.file.originFileObj, {
+        ...options,
+        success: (result) => {
+          setCompressingFile(result);
+          let reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onload = function (e: any) {
+            setCompressingImg(e.target.result);
+          };
+        },
+      });
+    }
   };
 
-  const formOnValueChange = (value: any) => {
-    console.log(value);
-    new Compressor(file.originFileObj, {
-      ...value,
-      success: (result) => {
-        console.log(result);
-        setCompressingFile(result);
-        let reader = new FileReader();
-        reader.readAsDataURL(result);
-        reader.onload = function (e: any) {
-          setCompressingImg(e.target.result);
-        };
-      },
-    });
+  const formOnValueChange = (value: CompressorOptions) => {
+    if (file && file.originFileObj) {
+      new Compressor(file.originFileObj, {
+        ...value,
+        success: (result) => {
+          setCompressingFile(result);
+          let reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onload = function (e: any) {
+            setCompressingImg(e.target.result);
+          };
+        },
+      });
+    }
   };
 
   const downLoadCompressing = () => {
     if (compressingFile) {
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(compressingFile);   // 创建对象超链接
-      a.download = `${compressingFile.name}.jpg`;   // 下载后文件名
-      a.click();   // 点击下载
+      a.href = URL.createObjectURL(compressingFile);
+      a.download = `${compressingFile?.name}.jpg`
+      a.click();
     }
-  }
+  };
 
   const resetImg = () => {
     setFileList([]);
     setCurrentImg("");
     setCompressingImg("");
     setFile(undefined);
-  }
+  };
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[16, 16]} style={{overflow:'auto',height: "calc(100vh - 100px"}}>
       <Col lg={6} xs={24}>
         <Card
           title="设置"
@@ -130,27 +146,33 @@ export default function ImageCompress() {
         {currentImg ? (
           <div style={{ height: "calc(100vh - 170px)", overflow: "auto" }}>
             <Card
-              title={`原图 【大小】：${file.size / 1024}KB`}
+              title={`原图 【大小】：${(file?.size || 0) / 1024}KB`}
               styles={{ body: { textAlign: "center" } }}
-               extra={<Button theme='solid' type="primary" onClick={resetImg} >重新上传图片</Button>}
+              extra={
+                <Button theme="solid" type="primary" onClick={resetImg}>
+                  重新上传图片
+                </Button>
+              }
             >
-              <Image
-                height={350}
-                src={currentImg}
-                alt="preview"
-              />
+              <Image height={350} src={currentImg} alt="preview" />
             </Card>
             <Card
-              title={`压缩后图片 【大小】：${compressingFile?.size / 1024}KB`}
+              title={`压缩后图片 【大小】：${
+                (compressingFile?.size || 0) / 1024
+              }KB`}
               style={{ marginTop: "16px" }}
               styles={{ body: { textAlign: "center" } }}
-              extra={<Button theme='solid' type="primary" onClick={downLoadCompressing} >下载</Button>}
+              extra={
+                <Button
+                  theme="solid"
+                  type="primary"
+                  onClick={downLoadCompressing}
+                >
+                  下载
+                </Button>
+              }
             >
-              <Image
-                height={350}
-                src={compressingImg}
-                alt="preview"
-              />
+              <Image height={350} src={compressingImg} alt="preview" />
             </Card>
           </div>
         ) : (

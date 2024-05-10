@@ -1,18 +1,16 @@
-import { Row, Col, Upload, Button } from "antd";
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import Draggable from "react-draggable";
-import { InboxOutlined } from "@ant-design/icons";
-import { Form, Radio, RadioGroup, Space } from "@douyinfe/semi-ui";
 import ScreenSplitIcon from "@/components/ScreenSplitIcon";
-import { IconSync, IconAlignBottom, IconAlignTop } from "@douyinfe/semi-icons";
 import { createRandomArray } from "@/utils";
+import { InboxOutlined } from "@ant-design/icons";
+import { IconAlignBottom, IconAlignTop, IconSync } from "@douyinfe/semi-icons";
+import { Form, Radio, RadioGroup, Space } from "@douyinfe/semi-ui";
+import { Button, Col, Row, Upload } from "antd";
+import { UploadFile } from "antd/lib/upload/interface";
+import { useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
+import { useTranslation } from "react-i18next";
 import "./index.scss";
 
 const { Dragger } = Upload;
-
-const FIXED_WIDTH = 600;
-const FIXED_HEIGHT = 800;
 
 interface RadioGroupItem {
   x: number;
@@ -23,6 +21,30 @@ interface RadioGroupItem {
 interface RadioGroupList {
   [key: string]: RadioGroupItem;
 }
+
+type DraggableAxis = "none" | "both" | "x" | "y" | undefined;
+
+interface DraggableItem {
+  axis: DraggableAxis;
+  defaultPosition: { x: number; y: number };
+  handle: string;
+  key: string;
+  lineStyle: React.CSSProperties;
+  newPosition?: { x: number; y: number };
+}
+
+interface FileWithPreview extends UploadFile {
+  preview?: string;
+}
+
+interface CustomEvent {
+  target: {
+    value: string;
+  };
+}
+
+const FIXED_WIDTH = 600;
+const FIXED_HEIGHT = 800;
 
 const RadioGroupList: RadioGroupList = {
   "1": { x: 2, y: 2, text: "4张" },
@@ -39,14 +61,19 @@ const RadioGroupList: RadioGroupList = {
 const ImageSlicing = () => {
   const { t } = useTranslation();
   const imageRef = useRef<HTMLImageElement>(null);
-  const [fileList, setFileList] = useState<Array<any>>([]);
-  const [currentImg, setCurrentImg] = useState("");
-  const [customX, setCustomX] = useState(0);
-  const [customY, setCustomY] = useState(0);
-  const [imgNaturalSize, setImgNaturalSize] = useState({ width: 0, height: 0 });
-  const [scale, setScale] = useState(1);
-  const [draggableListData, setDraggableListData] = useState<any[]>([]);
-  const [radioGroupValue, setRadioGroupValue] = useState("");
+  const [fileList, setFileList] = useState<FileWithPreview[]>([]);
+  const [currentImg, setCurrentImg] = useState<string>("");
+  const [customX, setCustomX] = useState<number>(0);
+  const [customY, setCustomY] = useState<number>(0);
+  const [imgNaturalSize, setImgNaturalSize] = useState<{
+    width: number;
+    height: number;
+  }>({ width: 0, height: 0 });
+  const [scale, setScale] = useState<number>(1);
+  const [draggableListData, setDraggableListData] = useState<DraggableItem[]>(
+    []
+  );
+  const [radioGroupValue, setRadioGroupValue] = useState<string>("");
 
   const resetCustom = () => {
     setCustomX(0);
@@ -176,7 +203,7 @@ const ImageSlicing = () => {
           .map((item, index) => {
             const position = xUnitSize * (index + 1);
             return {
-              axis: "x",
+              axis: "x" as DraggableAxis,
               defaultPosition: { x: position, y: 0 },
               handle: `handle-x-${item}`,
               key: `x-${item}`,
@@ -191,7 +218,7 @@ const ImageSlicing = () => {
             yDraggableList.map((item, index) => {
               const position = yUnitSize * (index + 1);
               return {
-                axis: "y",
+                axis: "y" as DraggableAxis,
                 defaultPosition: { x: 0, y: position },
                 handle: `handle-y-${item}`,
                 key: `y-${item}`,
@@ -369,15 +396,13 @@ const ImageSlicing = () => {
             name="file"
             onChange={filesChange}
             fileList={fileList}
-            customRequest={() => {}}
+            customRequest={() => { }}
             showUploadList={false}
           >
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>
-            <p className="ant-upload-text">
-              点击或拖拽上传图片
-            </p>
+            <p className="ant-upload-text">点击或拖拽上传图片</p>
           </Dragger>
         )}
       </Col>
