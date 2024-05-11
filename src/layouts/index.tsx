@@ -16,7 +16,7 @@ import styles from "./index.module.scss";
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const NavMap = [
+export const NavMap = [
   {
     itemKey: "/home",
     text: "首页",
@@ -28,30 +28,35 @@ const NavMap = [
     text: "JSON格式化",
     icon: <img src={JsonSvg} />,
     className: styles.navItem1,
+    des:'将JSON格式化为可读性更好的格式'
   },
   {
     itemKey: "/jsonDiff",
     text: "JSON对比",
     icon: <img src={JsonDiffSvg} />,
     className: styles.navItem1,
+    des:'比较两个JSON对象，并展示差异'
   },
   {
     itemKey: "/imageSlicing",
     text: "图片分割",
     icon: <IconImage />,
     className: styles.navItem1,
+    des:'将图片切割成多张小图片'
   },
   {
     itemKey: "/imageCompress",
     text: "图片压缩",
     icon: <img src={ImageCompressSvg} />,
     className: styles.navItem1,
+    des:'压缩图片大小'
   },
   {
     itemKey: "/imgScan",
     text: "图片识别文字",
     icon: <img src={imgScanSvg} />,
     className: styles.navItem1,
+    des:'识别图片中的文字'
   },
 ];
 
