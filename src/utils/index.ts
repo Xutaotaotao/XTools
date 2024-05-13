@@ -5,3 +5,15 @@ export function createRandomArray(length: number, min = 1, max = 1000) {
   }
   return array;
 }
+
+ export function getFileExtension(filename: string): string {
+  const parts = filename.split('.');
+  if (parts.length === 1) {
+    return '';
+  }
+  const extension = parts.pop();
+  if (extension) {
+    return extension.toLowerCase();
+  }
+  return '';
+}

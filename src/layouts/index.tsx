@@ -4,61 +4,12 @@ import {
   IconGithubLogo,
   IconLikeHeart,
 } from "@douyinfe/semi-icons";
-import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
 import { Button, Layout, Nav, Popover,Image, Row, Col } from "@douyinfe/semi-ui";
 import Logo from "@/assets/img/XTools.svg";
-import ImageCompressSvg from "@/assets/img/imageCompress.svg";
-import JsonSvg from "@/assets/img/json.svg";
-import JsonDiffSvg from "@/assets/img/jsonDiff.svg";
-import imgScanSvg from "@/assets/img/imgScan.svg";
 import "@/assets/normalize.css";
-import styles from "./index.module.scss";
+import { NAV_MAP } from "./menu";
+const { Header, Sider, Content } = Layout;
 
-const { Header, Footer, Sider, Content } = Layout;
-
-export const NavMap = [
-  {
-    itemKey: "/home",
-    text: "首页",
-    icon: <IconIntro />,
-    className: styles.navItem,
-  },
-  {
-    itemKey: "/jsonFormatting",
-    text: "JSON格式化",
-    icon: <img src={JsonSvg} />,
-    className: styles.navItem1,
-    des:'将JSON格式化为可读性更好的格式'
-  },
-  {
-    itemKey: "/jsonDiff",
-    text: "JSON对比",
-    icon: <img src={JsonDiffSvg} />,
-    className: styles.navItem1,
-    des:'比较两个JSON对象，并展示差异'
-  },
-  {
-    itemKey: "/imageSlicing",
-    text: "图片分割",
-    icon: <IconImage />,
-    className: styles.navItem1,
-    des:'将图片切割成多张小图片'
-  },
-  {
-    itemKey: "/imageCompress",
-    text: "图片压缩",
-    icon: <img src={ImageCompressSvg} />,
-    className: styles.navItem1,
-    des:'压缩图片大小'
-  },
-  {
-    itemKey: "/imgScan",
-    text: "图片识别文字",
-    icon: <img src={imgScanSvg} />,
-    className: styles.navItem1,
-    des:'识别图片中的文字'
-  },
-];
 
 const XLayout = () => {
   const location = useLocation();
@@ -145,7 +96,7 @@ const XLayout = () => {
               onSelect={(item: any) => {
                 history.push(item.itemKey as string);
               }}
-              items={NavMap}
+              items={NAV_MAP}
               footer={{
                 collapseButton: true,
               }}

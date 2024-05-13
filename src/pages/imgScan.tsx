@@ -4,6 +4,7 @@ import { Button } from "@douyinfe/semi-ui";
 import { useState } from "react";
 import { createWorker } from "tesseract.js";
 import { UploadChangeParam } from "antd/es/upload";
+import { BODY_HEIGHT } from "@/utils/const";
 
 const { Dragger } = Upload;
 
@@ -54,7 +55,7 @@ export default function ImgScan() {
          <Card
            title="图片上传"
            styles={{
-             body: { height: `calc(100vh - 150px)`, overflow: "auto" },
+             body: { height: BODY_HEIGHT, overflow: "auto" },
            }}
            extra={
              currentImg ? (
@@ -93,10 +94,10 @@ export default function ImgScan() {
          <Card
            title="识别结果"
            styles={{
-             body: { height: `calc(100vh - 150px)`, overflow: "auto" },
+             body: { height: BODY_HEIGHT, overflow: "auto" },
            }}
          >
-           <Spin spinning={spinning} tip="正在识别中...">
+           <Spin style={{ marginTop: 15 }} spinning={spinning} tip="正在识别中...">
              <pre>{extractedText}</pre>
            </Spin>
          </Card>

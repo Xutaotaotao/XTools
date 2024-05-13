@@ -2,7 +2,7 @@ import { Card, Typography } from "@douyinfe/semi-ui";
 import { Col, Row } from "antd";
 import React from "react";
 import { history } from "umi";
-import { NavMap } from "../layouts/index";
+import { NAV_MAP } from "../layouts/menu";
 
 const { Title,Text } = Typography;
 
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div>
       <Row gutter={[16, 16]}>
-        {NavMap.filter((item) => item.itemKey !== "/home").map(
+        {NAV_MAP.filter((item) => item.itemKey !== "/home").map(
           (item, index) => (
             <Col
               key={item.itemKey}
