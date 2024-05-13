@@ -1,1 +1,1 @@
-export const BODY_HEIGHT = 'calc(100vh - 150px)';
+export const BODY_HEIGHT = 'calc(100vh - 200px)';

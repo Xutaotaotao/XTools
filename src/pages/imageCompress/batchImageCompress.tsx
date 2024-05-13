@@ -6,6 +6,7 @@ import Compressor from "compressorjs";
 import { useRef, useState } from "react";
 import { UploadFile, UploadProps } from "antd/lib/upload/interface";
 import { FormApi } from "@douyinfe/semi-ui/lib/es/form";
+import { BODY_HEIGHT } from "@/utils/const";
 
 const { Dragger } = Upload;
 
@@ -187,7 +188,7 @@ export default function BatchImageCompress() {
  };
 
   return (
-    <div style={{ height: "calc(100vh - 170px)",width: "100%" }}>
+    <div style={{ height: BODY_HEIGHT,width: "100%" }}>
       <Spin
         spinning={spinningStatus.spinning}
         tip={spinningStatus.tip}

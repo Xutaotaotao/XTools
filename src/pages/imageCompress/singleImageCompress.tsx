@@ -1,3 +1,4 @@
+import { BODY_HEIGHT } from "@/utils/const";
 import { InboxOutlined } from "@ant-design/icons";
 import { Button, Form, Image } from "@douyinfe/semi-ui";
 import { FormApi } from "@douyinfe/semi-ui/lib/es/form";
@@ -86,11 +87,11 @@ export default function ImageCompress() {
   };
 
   return (
-    <Row gutter={[16, 16]} style={{overflow:'auto',height: "calc(100vh - 100px"}}>
+    <Row gutter={[16, 16]} style={{overflow:'auto',height: BODY_HEIGHT}}>
       <Col lg={6} xs={24}>
         <Card
           title="设置"
-          styles={{ body: { height: "calc(100vh - 200px", overflow: "auto" } }}
+          styles={{ body: { height: BODY_HEIGHT, overflow: "auto" } }}
         >
           <Form
             getFormApi={(formApi) => (api.current = formApi)}
@@ -144,7 +145,7 @@ export default function ImageCompress() {
       </Col>
       <Col lg={18} xs={24}>
         {currentImg ? (
-          <div style={{ height: "calc(100vh - 170px)", overflow: "auto" }}>
+          <div style={{ height: BODY_HEIGHT, overflow: "auto" }}>
             <Card
               title={`原图 【大小】：${(file?.size || 0) / 1024}KB`}
               styles={{ body: { textAlign: "center" } }}

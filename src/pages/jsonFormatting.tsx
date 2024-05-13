@@ -3,6 +3,7 @@ import { Col, Row, message } from "antd"
 import { Input } from 'antd';
 import ReactJson from 'react-json-view'
 import './index.scss'
+import { BODY_HEIGHT } from "@/utils/const";
 
 const { TextArea } = Input;
 
@@ -19,7 +20,7 @@ const JsonFormatting = () => {
 
   return <Row gutter={[16, 16]}>
     <Col lg={10} xs={24}>
-      <TextArea placeholder="请输入想要格式化的数据" className="json-input" onChange={(e) => handleJsonData(e)}/>
+      <TextArea style={{height:BODY_HEIGHT}} placeholder="请输入想要格式化的数据" onChange={(e) => handleJsonData(e)}/>
     </Col>
     <Col lg={14} xs={24}>
       <div className="json-input">

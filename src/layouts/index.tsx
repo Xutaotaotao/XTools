@@ -4,11 +4,13 @@ import {
   IconGithubLogo,
   IconLikeHeart,
 } from "@douyinfe/semi-icons";
-import { Button, Layout, Nav, Popover,Image, Row, Col } from "@douyinfe/semi-ui";
+import { Button, Layout, Nav, Popover,Image, Row, Col,Typography } from "@douyinfe/semi-ui";
 import Logo from "@/assets/img/XTools.svg";
 import "@/assets/normalize.css";
 import { NAV_MAP } from "./menu";
 const { Header, Sider, Content } = Layout;
+
+const { Text,Title } = Typography;
 
 
 const XLayout = () => {
@@ -111,6 +113,10 @@ const XLayout = () => {
               backgroundColor: "var(--semi-color-bg-0)",
             }}
           >
+            <div style={{display: "flex",alignItems:'center',marginBottom: "12px"}}>
+            <Title heading={3} style={{marginBottom: "12px"}}>{NAV_MAP.find(item => item.itemKey === location.pathname)?.text}</Title>
+            <Text style={{marginLeft: "12px"}}>{NAV_MAP.find(item => item.itemKey === location.pathname)?.des}</Text>
+            </div>
             <Outlet />
           </Content>
         </Layout>
