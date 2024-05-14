@@ -15,7 +15,6 @@ const { Text,Title } = Typography;
 
 const XLayout = () => {
   const location = useLocation();
-
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
@@ -34,11 +33,14 @@ const XLayout = () => {
                   alt="logo"
                   style={{ height: "48px", cursor: "pointer" }}
                 />
-                <img
+                {
+                  ENV !== 'dev' ? <img
                   style={{ marginLeft: "10px" }}
                   src="https://visitor-badge.laobi.icu/badge?page_id=xutaotaotao.github.io.XTools"
                   onError={handleImageError}
-                />
+                /> : null
+                }
+                
               </div>
             </Nav.Header>
             <Nav.Footer>

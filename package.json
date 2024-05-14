@@ -2,7 +2,7 @@
   "private": true,
   "author": "Xutaotaotao <xutaotao852@hellobike.com>",
   "scripts": {
-    "dev": "umi dev",
+    "dev": "cross-env ENV=dev umi dev",
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
@@ -20,6 +20,7 @@
     "@types/react-dom": "^18.0.11",
     "antd": "^5.16.4",
     "compressorjs": "^1.2.1",
+    "cross-env": "^7.0.3",
     "gh-pages": "^6.1.1",
     "heic2any": "^0.0.4",
     "json-diff-kit": "^1.0.29",
