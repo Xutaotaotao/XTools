@@ -5,6 +5,7 @@ import JsonSvg from "@/assets/img/json.svg";
 import JsonDiffSvg from "@/assets/img/jsonDiff.svg";
 import imgScanSvg from "@/assets/img/imgScan.svg";
 import imgFormatConversion from "@/assets/img/imgFormatConversion.svg";
+import timeSvg from "@/assets/img/time.svg";
 
 export const NAV_MAP = [
   {
@@ -47,5 +48,11 @@ export const NAV_MAP = [
     text: "图片格式转换",
     icon: <img src={imgFormatConversion} />,
     des:'图片格式互相转换'
+  },
+  {
+    itemKey: "/chrono",
+    text: "倒计时",
+    icon: <img src={timeSvg} />,
+    des:'用于监控事物的持续时间'
   },
 ];
