@@ -36,7 +36,7 @@ export const NAV_MAP = [
     itemKey: "/imageCompress",
     text: "图片压缩",
     icon: <img src={ImageCompressSvg} />,
-    des:'压缩图片大小'
+    des:'压缩图片大小，支持单个和批量压缩'
   },
   {
     itemKey: "/imgScan",
