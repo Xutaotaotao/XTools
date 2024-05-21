@@ -72,8 +72,8 @@ export default function ColorConversion() {
   },[])
 
   return (
-    <div>
-      <Card>
+    <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column'}}>
+      <Card  style={{width:'50%'}}>
         <Form
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
