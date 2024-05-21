@@ -52,7 +52,7 @@ export const NAV_MAP = [
   },
   {
     itemKey: "/chrono",
-    text: "倒计时",
+    text: "计时器",
     icon: <img src={timeSvg} />,
     des:'用于监控事物的持续时间'
   },
