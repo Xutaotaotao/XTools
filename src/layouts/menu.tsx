@@ -27,6 +27,18 @@ export const NAV_MAP = [
     des:'比较两个JSON对象，并展示差异'
   },
   {
+    itemKey: "/chrono",
+    text: "计时器",
+    icon: <img src={timeSvg} />,
+    des:'用于监控事物的持续时间'
+  },
+  {
+    itemKey: "/colorConversion",
+    text: "颜色转换器",
+    icon: <img src={colorSvg} />,
+    des:'在不同格式之间转换颜色'
+  },
+  {
     itemKey: "/imageSlicing",
     text: "图片分割",
     icon: <IconImage />,
@@ -51,15 +63,9 @@ export const NAV_MAP = [
     des:'图片格式互相转换'
   },
   {
-    itemKey: "/chrono",
-    text: "计时器",
-    icon: <img src={timeSvg} />,
-    des:'用于监控事物的持续时间'
-  },
-  {
-    itemKey: "/colorConversion",
-    text: "颜色转换器",
-    icon: <img src={colorSvg} />,
-    des:'在不同格式之间转换颜色'
+    itemKey: "/imgFilter",
+    text: "图片格式转换",
+    icon: <img src={imgFormatConversion} />,
+    des:'图片格式互相转换'
   },
 ];
