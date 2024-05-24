@@ -7,6 +7,7 @@ import imgScanSvg from "@/assets/img/imgScan.svg";
 import imgFormatConversion from "@/assets/img/imgFormatConversion.svg";
 import timeSvg from "@/assets/img/time.svg";
 import colorSvg from "@/assets/img/color.svg";
+import imgEdit from "@/assets/img/imgEdit.svg";
 
 export const NAV_MAP = [
   {
@@ -63,9 +64,9 @@ export const NAV_MAP = [
     des:'图片格式互相转换'
   },
   {
-    itemKey: "/imgFilter",
-    text: "图片格式转换",
-    icon: <img src={imgFormatConversion} />,
-    des:'图片格式互相转换'
+    itemKey: "/imgEditor",
+    text: "图片编辑器",
+    icon: <img src={imgEdit} />,
+    des:'图片编辑器,支持裁剪、旋转、滤镜等'
   },
 ];
