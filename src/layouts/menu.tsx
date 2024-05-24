@@ -7,6 +7,7 @@ import imgScanSvg from "@/assets/img/imgScan.svg";
 import imgFormatConversion from "@/assets/img/imgFormatConversion.svg";
 import timeSvg from "@/assets/img/time.svg";
 import colorSvg from "@/assets/img/color.svg";
+import imgEdit from "@/assets/img/imgEdit.svg";
 
 export const NAV_MAP = [
   {
@@ -25,6 +26,18 @@ export const NAV_MAP = [
     text: "JSON对比",
     icon: <img src={JsonDiffSvg} />,
     des:'比较两个JSON对象，并展示差异'
+  },
+  {
+    itemKey: "/chrono",
+    text: "计时器",
+    icon: <img src={timeSvg} />,
+    des:'用于监控事物的持续时间'
+  },
+  {
+    itemKey: "/colorConversion",
+    text: "颜色转换器",
+    icon: <img src={colorSvg} />,
+    des:'在不同格式之间转换颜色'
   },
   {
     itemKey: "/imageSlicing",
@@ -51,15 +64,9 @@ export const NAV_MAP = [
     des:'图片格式互相转换'
   },
   {
-    itemKey: "/chrono",
-    text: "计时器",
-    icon: <img src={timeSvg} />,
-    des:'用于监控事物的持续时间'
-  },
-  {
-    itemKey: "/colorConversion",
-    text: "颜色转换器",
-    icon: <img src={colorSvg} />,
-    des:'在不同格式之间转换颜色'
+    itemKey: "/imgEditor",
+    text: "图片编辑器",
+    icon: <img src={imgEdit} />,
+    des:'图片编辑器,支持裁剪、旋转、滤镜等'
   },
 ];
