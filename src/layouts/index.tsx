@@ -4,7 +4,7 @@ import {
   IconGithubLogo,
   IconLikeHeart,
 } from "@douyinfe/semi-icons";
-import { Button, Layout, Nav, Popover,Image, Row, Col,Typography } from "@douyinfe/semi-ui";
+import { Button, Layout, Nav, Popover,Image,Typography } from "@douyinfe/semi-ui";
 import Logo from "@/assets/img/XTools.svg";
 import "@/assets/normalize.css";
 import { NAV_MAP } from "./menu";
@@ -45,16 +45,10 @@ const XLayout = () => {
             </Nav.Header>
             <Nav.Footer>
               <Popover content={<div style={{padding: "12px"}}>
-                <Row gutter={16}>
-                  <Col span={12} style={{textAlign: "center"}}>
+                  <div style={{textAlign: "center"}}>
                     <div>微信扫码赞助</div>
                     <Image width={250} src="https://taotaoxu.com/payment/IMG_5471.jpeg" />
-                  </Col>
-                  <Col span={12} style={{textAlign: "center"}}>
-                  <div>支付宝扫码赞助</div>
-                  <Image width={250} src="https://taotaoxu.com/payment/IMG_5472.jpg"/>
-                  </Col>
-                </Row>
+                  </div>
               </div>}>
               <Button
                 theme="borderless"
