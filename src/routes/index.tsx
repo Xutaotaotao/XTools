@@ -1,22 +1,23 @@
 import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
 import { Routes, Route } from 'react-router-dom';
-import Layout from '../layout';
-import Home from "../pages/home";
-import ImageSlicing from "../pages/imageSlicing";
+import i18n from '@/locales/index'
+import Layout from '@/layout';
+import Home from "@/pages/home";
+import ImageSlicing from "@/pages/imageSlicing";
 
 
  export const menu = [
   {
     itemKey: "/",
-    text: "首页",
+    text: i18n.t("home"),
     icon: <IconIntro />,
     element: <Home />
   },
   {
     itemKey: "/imageSlicing",
-    text: "图片分割",
+    text: i18n.t("imageSlicing"),
     icon: <IconImage />,
-    des:'将图片切割成多张小图片',
+    des:i18n.t("imageSlicingDes"),
     element: <ImageSlicing />
   },
 ]

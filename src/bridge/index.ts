@@ -3,9 +3,10 @@ import { path, dialog } from '@tauri-apps/api';
 import JSZip from 'jszip';
 import dayJS from 'dayjs';
 import { FileBase64List } from '@/type';
+import { IS_TAURI } from '@/utils/const';
 
 export const downloadFileBase64 = async (data: any, fileName: string) => {
-  if (window.__TAURI__){
+  if (IS_TAURI){
     const binaryString = atob(data.split(',')[1]);
     const len = binaryString.length;
     const bytes = new Uint8Array(len);
@@ -55,7 +56,7 @@ export const downloadBase64FileWithZip =async (data:FileBase64List,callback:Func
 }
 
 export const downloadFileBase64List = async (data:FileBase64List,callback:Function) => {
-  if (window.__TAURI__){
+  if (IS_TAURI){
     downloadBase64FileWithZip(data,callback)
   } else {
     data.forEach(item => {

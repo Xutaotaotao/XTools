@@ -18,12 +18,13 @@ specifiers:
   eslint: ^9.4.0
   eslint-plugin-react: ^7.34.2
   globals: ^15.3.0
+  i18next: ^23.11.5
   jszip: ^3.10.1
   less: ^4.2.0
   react: ^18.2.0
   react-dom: ^18.2.0
   react-draggable: ^4.4.6
-  react-i18next: ^14.1.2
+  react-i18next: ^13.3.1
   react-router-dom: ^6.23.1
   sass: ^1.77.4
   typescript: ^5.0.2
@@ -52,10 +53,11 @@ devDependencies:
   eslint: 9.4.0
   eslint-plugin-react: 7.34.2_eslint@9.4.0
   globals: 15.3.0
+  i18next: 23.11.5
   jszip: 3.10.1
   less: 4.2.0
   react-draggable: 4.4.6_nnrd3gsncyragczmpvfhocinkq
-  react-i18next: 14.1.2_nnrd3gsncyragczmpvfhocinkq
+  react-i18next: 13.5.0_tr2jspbkwonnp6jk3cz223vok4
   react-router-dom: 6.23.1_nnrd3gsncyragczmpvfhocinkq
   sass: 1.77.4
   typescript: 5.4.5
@@ -2408,6 +2410,12 @@ packages:
       void-elements: 3.1.0
     dev: true
 
+  /i18next/23.11.5:
+    resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
+    dependencies:
+      '@babel/runtime': 7.24.6
+    dev: true
+
   /iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -3591,8 +3599,8 @@ packages:
       react-dom: 18.3.1_react@18.3.1
     dev: true
 
-  /react-i18next/14.1.2_nnrd3gsncyragczmpvfhocinkq:
-    resolution: {integrity: sha512-FSIcJy6oauJbGEXfhUgVeLzvWBhIBIS+/9c6Lj4niwKZyGaGb4V4vUbATXSlsHJDXXB+ociNxqFNiFuV1gmoqg==}
+  /react-i18next/13.5.0_tr2jspbkwonnp6jk3cz223vok4:
+    resolution: {integrity: sha512-CFJ5NDGJ2MUyBohEHxljOq/39NQ972rh1ajnadG9BjTk+UXbHLq4z5DKEbEQBDoIhUmmbuS/fIMJKo6VOax1HA==}
     peerDependencies:
       i18next: '>= 23.2.3'
       react: '>= 16.8.0'
@@ -3606,6 +3614,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.6
       html-parse-stringify: 3.0.1
+      i18next: 23.11.5
       react: 18.3.1
       react-dom: 18.3.1_react@18.3.1
     dev: true
