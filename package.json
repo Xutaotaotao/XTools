@@ -42,5 +42,17 @@
     "typescript": "^5.0.2",
     "typescript-eslint": "^7.11.0",
     "vite": "^5.0.0"
+  },
+  "importSort": {
+    ".js, .jsx, .es6, .es": {
+      "parser": "babylon",
+      "style": "eslint",
+      "options": {}
+    },
+    ".ts, .tsx": {
+      "parser": "typescript",
+      "style": "eslint",
+      "options": {}
+    }
   }
 }

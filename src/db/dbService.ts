@@ -1,17 +1,17 @@
 import Database from "tauri-plugin-sql-api";
+import {ENV_MODE} from "@/utils/const"
 
 class DatabaseService {
   private db!: Database;
   private dbReady: Promise<void>;
 
   constructor() {
-    // 初始化数据库连接，假设数据库文件为 test.db
     this.dbReady = this.initDatabase();
   }
 
   private async initDatabase() {
     try {
-      this.db = await Database.load("sqlite:test.db");
+      this.db = await Database.load(ENV_MODE !== 'development' ? "sqlite:xtools.db" : "sqlite:xtools_test.db");
 
       // 创建 key-value 表，如果不存在的话
       await this.db.execute(`
