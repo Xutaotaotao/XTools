@@ -1,6 +1,9 @@
-import Logo from "@/assets/img/logo.svg";
+import LogoB from "@/assets/img/XTools_B.svg";
+import LogoW from "@/assets/img/XTools_W.svg";
 import "@/assets/normalize.css";
 import { getStore, setStore } from "@/bridge";
+import ThemeIcon from "@/components/ThemeIcon";
+import GlobalContext from "@/context/global";
 import i18n from "@/locales";
 import { menu as MENU_MAP } from "@/routes/index";
 import { ENV_MODE, IS_TAURI } from "@/utils/const";
@@ -11,7 +14,7 @@ import {
 } from "@douyinfe/semi-icons";
 import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
 import { Button, Image, Layout, Nav, Popover, Typography } from "@douyinfe/semi-ui";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
@@ -21,6 +24,8 @@ const { Text, Title } = Typography;
 
 
 const XLayout = () => {
+  const { themeData } = useContext(GlobalContext);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -89,7 +94,7 @@ const XLayout = () => {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <img
                   onClick={() => navigate("/")}
-                  src={Logo}
+                  src={themeData === 'defaultAlgorithm' ? LogoB : LogoW}
                   alt="logo"
                   style={{ height: "48px", cursor: "pointer" }}
                 />
@@ -103,6 +108,17 @@ const XLayout = () => {
               </div>
             </Nav.Header>
             <Nav.Footer>
+              <ThemeIcon />
+              <Button
+                theme="borderless"
+                icon={<TranslationOutlined />}
+                style={{
+                  color: "var(--semi-color-text-2)",
+                }}
+                onClick={() => { changeLang() }}
+              >
+                {currentLang === "zh" ? "En" : "中"}
+              </Button>
               <Popover content={<div style={{ padding: "12px" }}>
                 <div style={{ textAlign: "center" }}>
                   <div>{t("weChatSponsorship")}</div>
@@ -125,16 +141,7 @@ const XLayout = () => {
                 }}
                 onClick={() => { window.open("https://github.com/xutaotaotao/XTools") }}
               />
-              <Button
-                theme="borderless"
-                icon={<TranslationOutlined />}
-                style={{
-                  color: "var(--semi-color-text-2)",
-                }}
-                onClick={() => { changeLang() }}
-              >
-                {currentLang === "zh" ? "En" : "中"}
-              </Button>
+
             </Nav.Footer>
           </Nav>
         </div>
