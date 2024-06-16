@@ -2,5 +2,18 @@
   "home":"首页",
   "imageSlicing":"图片分割",
   "imageSlicingDes":"将图片切割成多张小图片",
-  "weChatSponsorship":"微信扫码赞助"
+  "weChatSponsorship":"微信扫码赞助",
+  "piece":"张",
+  "collapseSidebar":"收起侧边栏",
+  "expandSidebar":"展开侧边栏",
+  "saving":"保存中",
+  "saveSuccess":"保存成功",
+  "saveFailed":"保存失败",
+  "picturesHaveBeenSaved":"切割图片已保存到本地",
+  "customX":"自定义行",
+  "customY":"自定义列",
+  "reset":"重置",
+  "reuploadImage":"重新上传图片",
+  "download":"下载",
+  "clickOrDrag":"点击或拖拽上传图片"
 }

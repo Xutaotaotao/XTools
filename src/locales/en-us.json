@@ -2,5 +2,18 @@
   "home":"Home",
   "imageSlicing":"Image Slicing",
   "imageSlicingDes":"Cut the picture into multiple small pictures",
-  "weChatSponsorship":"WeChat code scanning sponsorship"
+  "weChatSponsorship":"WeChat code scanning sponsorship",
+  "piece":"piece",
+  "collapseSidebar":"Collapse sidebar",
+  "expandSidebar":"Expand sidebar",
+  "saving":"Saving",
+  "saveSuccess":"Save Success",
+  "saveFailed":"Save Failed",
+  "picturesHaveBeenSaved":"Cutting pictures have been saved locally",
+  "customX":"Custom X",
+  "customY":"Custom Y",
+  "reset":"Reset",
+  "reuploadImage":"Reupload Image",
+  "download":"Download",
+  "clickOrDrag":"Click or drag to upload images"
 }

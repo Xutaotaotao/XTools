@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import { downloadFileBase64List } from "@/bridge/index"
 import "./index.less";
 import { FileBase64List } from "@/type";
+import { useTranslation } from "react-i18next";
 
 const { Dragger } = Upload;
 
@@ -41,19 +42,10 @@ interface FileWithPreview extends UploadFile {
 const FIXED_WIDTH = 600;
 const FIXED_HEIGHT = 800;
 
-const RadioGroupList: RadioGroupList = {
-  "1": { x: 2, y: 2, text: "4张" },
-  "2": { x: 3, y: 2, text: "6张" },
-  "3": { x: 4, y: 2, text: "8张" },
-  "4": { x: 2, y: 3, text: "6张" },
-  "5": { x: 3, y: 3, text: "9张" },
-  "6": { x: 4, y: 3, text: "12张" },
-  "7": { x: 2, y: 4, text: "8张" },
-  "8": { x: 3, y: 4, text: "12张" },
-  "9": { x: 4, y: 4, text: "16张" },
-};
+
 
 const ImageSlicing = () => {
+  const { t } = useTranslation();
   const [messageApi, contextHolder] = message.useMessage();
   const imageRef = useRef<HTMLImageElement>(null);
   const [fileList, setFileList] = useState<FileWithPreview[]>([]);
@@ -71,8 +63,19 @@ const ImageSlicing = () => {
   const [radioGroupValue, setRadioGroupValue] = useState<string>("");
   const [loadingState, setLoadingState]=useState({
     loading: false,
-    tip: "保存中..."
+    tip: `${t("saving")}...`
   })
+  const RadioGroupList: RadioGroupList = {
+    "1": { x: 2, y: 2, text: `4${t("piece")}` },
+    "2": { x: 3, y: 2, text: `6${t("piece")}` },
+    "3": { x: 4, y: 2, text: `8${t("piece")}` },
+    "4": { x: 2, y: 3, text: `6${t("piece")}` },
+    "5": { x: 3, y: 3, text: `9${t("piece")}` },
+    "6": { x: 4, y: 3, text: `12${t("piece")}` },
+    "7": { x: 2, y: 4, text: `8${t("piece")}` },
+    "8": { x: 3, y: 4, text: `12${t("piece")}` },
+    "9": { x: 4, y: 4, text: `16${t("piece")}` },
+  };
 
   const resetCustom = () => {
     setCustomX(0);
@@ -125,7 +128,7 @@ const ImageSlicing = () => {
   const downloadSlice = (sliceData:FileBase64List) => {
     setLoadingState({
       loading: true,
-      tip: "保存中..."
+      tip: `${t("saving")}...`
     })
     downloadFileBase64List(sliceData,() => {
       setLoadingState({
@@ -134,7 +137,7 @@ const ImageSlicing = () => {
       })
       messageApi.open({
         type: 'success',
-        content: '切割图片已保存到本地',
+        content: t('picturesHaveBeenSaved'),
         duration: 5
       });
     })
@@ -254,7 +257,6 @@ const ImageSlicing = () => {
         <RadioGroup
           type="pureCard"
           direction="horizontal"
-          aria-label="单选组合示例"
           name="demo-radio-group-pureCard"
           onChange={radioGroupOnChange}
           value={radioGroupValue}
@@ -288,19 +290,18 @@ const ImageSlicing = () => {
             setCustomY(values.yVal || 0);
           }}
         >
-          <Form.InputNumber field="yVal" label="自定义行" />
-          <Form.InputNumber field="xVal" label="自定义列" />
+          <Form.InputNumber field="yVal" label={t("customX")}/>
+          <Form.InputNumber field="xVal" label={t("customY")} />
         </Form>
         <Space vertical style={{ width: "100%" }}>
           {fileList.length && customX > 0 && customY > 0 ? (
             <Button
               style={{ width: "100%" }}
               icon={<IconSync />}
-              aria-label="恢复原图"
               onClick={resetCustom}
               type="dashed"
             >
-              恢复原图
+              {t("reset")}
             </Button>
           ) : null}
 
@@ -308,10 +309,9 @@ const ImageSlicing = () => {
             <Button
               style={{ width: "100%" }}
               icon={<IconAlignTop />}
-              aria-label="重新上传图片"
               onClick={reUpload}
             >
-              重新上传图片
+              {t("reuploadImage")}
             </Button>
           ) : null}
 
@@ -319,11 +319,10 @@ const ImageSlicing = () => {
             <Button
               style={{ width: "100%" }}
               icon={<IconAlignBottom />}
-              aria-label="重新上传图片"
               onClick={sliceImage}
               type="primary"
             >
-              下载切割图片
+              {t("download")}
             </Button>
           ) : null}
         </Space>
@@ -414,7 +413,7 @@ const ImageSlicing = () => {
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>
-            <p className="ant-upload-text">点击或拖拽上传图片</p>
+            <p className="ant-upload-text">{t("clickOrDrag")}</p>
           </Dragger>
         )}
       </Col>

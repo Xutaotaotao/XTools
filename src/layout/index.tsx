@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   IconGithubLogo,
@@ -7,11 +7,13 @@ import {
 import { Button, Layout, Nav, Popover,Image,Typography } from "@douyinfe/semi-ui";
 import Logo from "@/assets/img/logo.svg";
 import "@/assets/normalize.css";
-import { menu as NAV_MAP } from "@/routes/index";
+import { menu as MENU_MAP } from "@/routes/index";
 import { ENV_MODE, IS_TAURI } from "@/utils/const";
 import { useTranslation } from "react-i18next";
 import i18n from "@/locales";
 import { TranslationOutlined } from "@ant-design/icons";
+import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
+import {KeyValueStore} from "@/db"
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,17 +24,40 @@ const XLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [currentLang, setCurrentLang] = useState<string>("zh");
+  const [currentLang, setCurrentLang] = useState<string>("");
+
+  const menuRouteMap: Record<string, { text: string; icon: JSX.Element; des?: string }> = {
+    '/':{
+      text: t("home"),
+      icon: <IconIntro />,
+    },
+    '/imageSlicing':{
+      text: t("imageSlicing"),
+      icon: <IconImage />,
+      des:t("imageSlicingDes"),
+    }
+  }
+
+  const NAV_MAP = MENU_MAP.map(menu => {
+    return {
+      ...menu,
+      ...menuRouteMap[menu.itemKey]
+    }
+  })
 
   const changeLang = (lang?: string) => {
+    const store = new KeyValueStore();
     if (lang) {
+      store.set('lang',lang)
       setCurrentLang(lang);
       i18n.changeLanguage(lang);
     } else {
       if (currentLang === "zh") {
+        store.set('lang',"en")
         setCurrentLang("en");
         i18n.changeLanguage("en");
       } else {
+        store.set('lang',"zh")
         setCurrentLang("zh");
         i18n.changeLanguage("zh");
       }
@@ -44,6 +69,19 @@ const XLayout = () => {
   ) => {
     e.currentTarget.style.display = "none";
   };
+
+  useEffect( () => {
+    const initData = async () => {
+      const store = new KeyValueStore();
+      const lang = await store.get('lang');
+      let navLang = navigator.language
+      navLang = navLang.substr(0, 2)
+      setCurrentLang(lang || navLang);
+      changeLang(lang || navLang)
+    }
+    initData();
+  }, []);
+
   return (
     <Layout>
       <Header style={{ backgroundColor: "var(--semi-color-bg-1)" }}>
@@ -115,6 +153,13 @@ const XLayout = () => {
               items={NAV_MAP}
               footer={{
                 collapseButton: true,
+                collapseText: (collapsed) => {
+                  if (collapsed) {
+                    return t("expandSidebar");
+                  } else {
+                    return t("collapseSidebar");
+                  }
+                }
               }}
             />
           </Sider>
