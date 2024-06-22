@@ -33,7 +33,7 @@ const XLayout = () => {
 
   const menuRouteMap: Record<string, { text: string; icon: JSX.Element; des?: string }> = {
     '/': {
-      text: t("home"),
+      text:t("home"),
       icon: <IconIntro />,
     },
     '/imageSlicing': {
@@ -178,7 +178,7 @@ const XLayout = () => {
           }}
         >
           <div style={{ display: "flex", alignItems: 'center', marginBottom: "12px" }}>
-            <Title heading={3} style={{ marginBottom: "12px" }}>{NAV_MAP.find(item => item.itemKey === location.pathname)?.text}</Title>
+            <Title heading={3} style={{ marginBottom: "12px" }}>{NAV_MAP.find(item => item.itemKey !== '/' && item.itemKey === location.pathname)?.text}</Title>
             <Text style={{ marginLeft: "12px" }}>{NAV_MAP.find(item => item.itemKey === location.pathname)?.des}</Text>
           </div>
           <Outlet />

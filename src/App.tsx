@@ -1,8 +1,9 @@
 import { HashRouter } from "react-router-dom";
-import Router from './routes';
 import { ConfigProvider, theme } from "antd";
-import GlobalContext from "./context/global";
+import { ConfigProvider as SemiConfigProvider } from '@douyinfe/semi-ui';
 import { useEffect, useState } from "react";
+import Router from './routes';
+import GlobalContext from "./context/global";
 import { getStore, setStore } from "./bridge";
 
 function App() {
@@ -11,7 +12,6 @@ function App() {
   const changeTheme = (val: 'darkAlgorithm' | 'defaultAlgorithm') => {
     setThemeData(val)
     setStore('theme', val)
-    // Todo: change native theme
     const body = document.body;
     if (val === 'darkAlgorithm') {
       body.setAttribute('theme-mode', 'dark');
@@ -38,14 +38,17 @@ function App() {
   }, [])
 
   return themeData ? <ConfigProvider theme={{ algorithm: themeData === 'darkAlgorithm' ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
-    <GlobalContext.Provider value={{
-      changeTheme,
-      themeData
-    }}>
-      <HashRouter>
-        <Router />
-      </HashRouter>
-    </GlobalContext.Provider>
+    <SemiConfigProvider>
+      <GlobalContext.Provider value={{
+        changeTheme,
+        themeData
+      }}>
+        <HashRouter>
+          <Router />
+        </HashRouter>
+      </GlobalContext.Provider>
+    </SemiConfigProvider>
+
   </ConfigProvider> : null
 }
 

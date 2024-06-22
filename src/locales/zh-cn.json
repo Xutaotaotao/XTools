@@ -15,5 +15,10 @@
   "reset":"重置",
   "reuploadImage":"重新上传图片",
   "download":"下载",
-  "clickOrDrag":"点击或拖拽上传图片"
+  "clickOrDrag":"点击或拖拽上传图片",
+  "SwitchTheme":"切换主题",
+  "Switching themes requires restarting the application. Do you want to continue?":"切换主题需要重启应用，是否继续？",
+  "Confirm":"确定",
+  "Cancel":"取消",
+  "WellcomeToXTools":"欢迎使用XTools！"
 }

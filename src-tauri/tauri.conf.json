@@ -7,11 +7,14 @@
   },
   "package": {
     "productName": "XTools",
-    "version": "0.0.0"
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
+      "os": {
+        "all": true
+      },
       "path": {
         "all": true
       },

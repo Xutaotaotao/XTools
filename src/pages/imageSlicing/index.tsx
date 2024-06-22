@@ -97,7 +97,7 @@ const ImageSlicing = () => {
     }
   };
 
-  const handleDragOnStop = (e: any, data: any, key: string) => {
+  const handleDragOnStop = (data: any, key: string) => {
     const { x, y } = data;
     setDraggableListData(
       draggableListData.map((item) => {
@@ -377,8 +377,8 @@ const ImageSlicing = () => {
                       defaultPosition={defaultPosition}
                       handle={`.${handle}`}
                       key={key}
-                      onStop={(e, data) => {
-                        handleDragOnStop(e, data, key);
+                      onStop={(_e, data) => {
+                        handleDragOnStop(data, key);
                       }}
                     >
                       <div

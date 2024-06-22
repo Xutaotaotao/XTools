@@ -15,5 +15,10 @@
   "reset":"Reset",
   "reuploadImage":"Reupload Image",
   "download":"Download",
-  "clickOrDrag":"Click or drag to upload images"
+  "clickOrDrag":"Click or drag to upload images",
+  "SwitchTheme":"Switch Theme",
+  "Switching themes requires restarting the application. Do you want to continue?":"Switching themes requires restarting the application. Do you want to continue?",
+  "Confirm":"Confirm",
+  "Cancel":"Cancel",
+  "WellcomeToXTools":"Wellcome To XTools!"
 }
