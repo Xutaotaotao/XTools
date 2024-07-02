@@ -14,6 +14,8 @@ import {
 } from "@douyinfe/semi-icons";
 import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
 import { Button, Image, Layout, Nav, Popover, Typography } from "@douyinfe/semi-ui";
+import { relaunch } from "@tauri-apps/api/process";
+import { invoke } from "@tauri-apps/api/tauri";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -60,10 +62,23 @@ const XLayout = () => {
         setStore('lang', "en")
         setCurrentLang("en");
         i18n.changeLanguage("en");
+        if (IS_TAURI) {
+          invoke('change_menu_language',{lang: "en"}).then(() => {
+          console.log(1111)
+            relaunch()
+          })
+        }
       } else {
         setStore('lang', "zh")
         setCurrentLang("zh");
         i18n.changeLanguage("zh");
+        if (IS_TAURI) {
+          invoke('change_menu_language',{lang: "zh"}).then(() => {
+          console.log(1111)
+
+            relaunch()
+          })
+        }
       }
     }
   };
