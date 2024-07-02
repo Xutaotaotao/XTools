@@ -152,7 +152,7 @@ const XLayout = () => {
             style={{ maxWidth: 180, height: "100%" }}
             defaultSelectedKeys={["/home"]}
             selectedKeys={[location.pathname]}
-            onSelect={(item: any) => {
+            onSelect={(item) => {
               navigate(item.itemKey as string);
             }}
             items={NAV_MAP}
