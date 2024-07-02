@@ -64,7 +64,6 @@ const XLayout = () => {
         i18n.changeLanguage("en");
         if (IS_TAURI) {
           invoke('change_menu_language',{lang: "en"}).then(() => {
-          console.log(1111)
             relaunch()
           })
         }
@@ -74,8 +73,6 @@ const XLayout = () => {
         i18n.changeLanguage("zh");
         if (IS_TAURI) {
           invoke('change_menu_language',{lang: "zh"}).then(() => {
-          console.log(1111)
-
             relaunch()
           })
         }
