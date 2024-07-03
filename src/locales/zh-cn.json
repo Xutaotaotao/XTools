@@ -41,5 +41,6 @@
   "hide": "隐藏",
   "hideOthers": "隐藏其他",
   "unhide": "显示全部",
-  "switchLanguage": "切换语言"
+  "switchLanguage": "切换语言",
+  "Switching Language requires restarting the application. Do you want to continue?":"切换语言需要重启应用，是否继续？"
 }

@@ -7,18 +7,24 @@ use crate::menu::create_menu;
 use crate::translator::{Language, Translator};
 use std::{
     fs, io,
+    path::PathBuf,
     sync::{Arc, Mutex},
 };
-use tauri::{command, generate_context, generate_handler, Builder};
+use tauri::{command, generate_context, generate_handler, Builder, Config};
 use tauri_plugin_theme::ThemePlugin;
+use tauri::api::path::app_data_dir;
 
-const DATA_FILE_PATH: &str = "../lang.data";
+fn get_data_file_path(config: &tauri::Config) -> PathBuf {
+    app_data_dir(config).unwrap().join("lang.data")
+}
 
-fn write_data_to_file(file_path: &str, data: &str) -> Result<(), io::Error> {
+fn write_data_to_file(config: &tauri::Config, data: &str) -> Result<(), io::Error> {
+    let file_path = get_data_file_path(config);
     fs::write(file_path, data)
 }
 
-fn read_data_from_file(file_path: &str) -> Result<String, io::Error> {
+fn read_data_from_file(config: &tauri::Config) -> Result<String, io::Error> {
+    let file_path = get_data_file_path(config);
     fs::read_to_string(file_path)
 }
 
@@ -28,31 +34,55 @@ fn greet(name: &str) -> String {
 }
 
 #[command]
-fn change_menu_language(lang: &str) {
-    print!("change_menu_language: {}", lang);
-    if let Err(e) = write_data_to_file(DATA_FILE_PATH, &lang) {
+fn change_menu_language(config: tauri::State<'_, Config>, lang: &str) {
+    println!("change_menu_language: {}", lang);
+    if let Err(e) = write_data_to_file(&config, lang) {
         eprintln!("Error writing file: {}", e);
     }
 }
 
 fn main() {
     let translator = Arc::new(Mutex::new(Translator::new()));
-    let mut initial_lang = Language::English;
-    match read_data_from_file(DATA_FILE_PATH) {
+    let mut ctx = generate_context!();
+    let config = ctx.config().clone();
+    let mut initial_lang: Option<Language> = None;
+    
+    // 首先尝试从文件读取语言设置
+    match read_data_from_file(&config) {
         Ok(data) => {
-            if data == "zh" {
-                initial_lang = Language::Chinese;
-            }
+            initial_lang = match data.as_str() {
+                "zh" => Some(Language::Chinese),
+                "en" => Some(Language::English),
+                // 可以添加其他语言
+                _ => None,
+            };
         }
-        Err(e) => eprintln!("Error reading file: {}", e),
+        Err(e) => {
+            eprintln!("Error reading file: {}", e);
+        }
     }
 
-    let menu = create_menu(&translator.lock().unwrap(), &initial_lang);
-    let mut ctx = generate_context!();
+    // 如果文件中没有有效的语言设置，则尝试使用系统语言
+    if initial_lang.is_none() {
+        if let Some(locale) = tauri::api::os::locale() {
+            initial_lang = if locale.starts_with("zh") {
+                Some(Language::Chinese)
+            } else if locale.starts_with("en") {
+                Some(Language::English)
+            } else {
+                None
+            };
+        }
+    }
 
+    // 如果仍然没有设置语言，使用默认语言（这里设置为英语）
+    let initial_lang = initial_lang.unwrap_or(Language::English);
+
+    let menu = create_menu(&translator.lock().unwrap(), &initial_lang);
     Builder::default()
         .menu(menu)
         .manage(translator.clone())
+        .manage(config)
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(ThemePlugin::init(ctx.config_mut()))
         .invoke_handler(generate_handler![greet, change_menu_language])
