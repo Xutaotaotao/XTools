@@ -5,14 +5,15 @@ mod translator;
 
 use crate::menu::create_menu;
 use crate::translator::{Language, Translator};
+use std::process;
 use std::{
     fs, io,
     path::PathBuf,
     sync::{Arc, Mutex},
 };
+use tauri::api::path::app_data_dir;
 use tauri::{command, generate_context, generate_handler, Builder, Config};
 use tauri_plugin_theme::ThemePlugin;
-use tauri::api::path::app_data_dir;
 
 fn get_data_file_path(config: &tauri::Config) -> PathBuf {
     app_data_dir(config).unwrap().join("lang.data")
@@ -46,7 +47,7 @@ fn main() {
     let mut ctx = generate_context!();
     let config = ctx.config().clone();
     let mut initial_lang: Option<Language> = None;
-    
+
     // 首先尝试从文件读取语言设置
     match read_data_from_file(&config) {
         Ok(data) => {
@@ -81,6 +82,49 @@ fn main() {
     let menu = create_menu(&translator.lock().unwrap(), &initial_lang);
     Builder::default()
         .menu(menu)
+        .on_menu_event(|event| {
+            let window = event.window();
+            match event.menu_item_id() {
+                "about" => {
+                    tauri::api::dialog::message(Some(&window), "关于", "XTools, 完全本地化工具。");
+                }
+                "quit" => {
+                    process::exit(0);
+                }
+                "undo" => {
+                    window.eval("document.execCommand('undo')").unwrap();
+                }
+                "redo" => {
+                    window.eval("document.execCommand('redo')").unwrap();
+                }
+                "cut" => {
+                    window.eval("document.execCommand('cut')").unwrap();
+                }
+                "copy" => {
+                    window.eval("document.execCommand('copy')").unwrap();
+                }
+                "paste" => {
+                    window.eval("document.execCommand('paste')").unwrap();
+                }
+                "selectAll" => {
+                    window.eval("document.execCommand('selectAll')").unwrap();
+                }
+                "close" => {
+                    window.close().unwrap();
+                }
+                "minimize" => {
+                    window.minimize().unwrap();
+                }
+                "zoom" => {
+                    if window.is_maximized().unwrap() {
+                        window.unmaximize().unwrap();
+                    } else {
+                        window.maximize().unwrap();
+                    }
+                }
+                _ => {}
+            }
+        })
         .manage(translator.clone())
         .manage(config)
         .plugin(tauri_plugin_sql::Builder::default().build())

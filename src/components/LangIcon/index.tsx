@@ -52,7 +52,7 @@ const LangIcon = () => {
           okText: t("Confirm"),
           cancelText: t("Cancel"),
           onOk: () => {
-            changeLangAction('en');
+            changeLangAction('zh');
           },
         });
       }
