@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::fs;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use serde_json::Value;
@@ -36,21 +36,7 @@ impl Translator {
     }
 
     fn get_resource_path() -> PathBuf {
-        if cfg!(debug_assertions) {
-            // 开发环境
-            PathBuf::from("../src")
-        } else {
-            // 打包环境
-            env::current_exe()
-                .expect("Failed to get current executable path")
-                .parent()
-                .expect("Failed to get parent directory")
-                .parent()
-                .expect("Failed to get parent directory")
-                .join("Resources")
-                .join("_up_")
-                .join("src")
-        }
+        PathBuf::from("./")
     }
 
     pub fn translate(&self, key: &str, lang: &Language) -> String {

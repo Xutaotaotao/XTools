@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { I18nextProvider } from 'react-i18next';
-import i18n from '@/locales/index'
+import i18n from '../src-tauri/locales/index';
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

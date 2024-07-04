@@ -61,7 +61,7 @@
         "icons/icon.ico"
       ],
       "resources": [
-        "../src/locales/*"
+        "locales"
       ]
     }
   }
