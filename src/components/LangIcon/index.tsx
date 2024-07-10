@@ -7,6 +7,7 @@ import { relaunch } from "@tauri-apps/api/process";
 import { invoke } from "@tauri-apps/api/tauri";
 import { IS_TAURI } from "@/utils/const";
 import { useTranslation } from "react-i18next";
+import {info} from "tauri-plugin-log-api";
 
 const LangIcon = () => {
   const {t} = useTranslation()
@@ -15,6 +16,7 @@ const LangIcon = () => {
   const [modal, contextHolder] = Modal.useModal();
 
   const changeLangAction = async (lang: string) => {
+    info('changeLangAction in render')
     setStore("lang", lang);
     setCurrentLang(lang);
     i18n.changeLanguage(lang);

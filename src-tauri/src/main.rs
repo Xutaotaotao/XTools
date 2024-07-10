@@ -13,7 +13,9 @@ use std::{
 };
 use tauri::api::path::app_data_dir;
 use tauri::{command, generate_context, generate_handler, Builder, Config};
+use tauri_plugin_log::LogTarget;
 use tauri_plugin_theme::ThemePlugin;
+use log::LevelFilter;
 
 fn get_data_file_path(config: &tauri::Config) -> PathBuf {
     app_data_dir(config).unwrap().join("lang.data")
@@ -36,7 +38,7 @@ fn greet(name: &str) -> String {
 
 #[command]
 fn change_menu_language(config: tauri::State<'_, Config>, lang: &str) {
-    println!("change_menu_language: {}", lang);
+    log::info!("change_menu_language: {}", lang);
     if let Err(e) = write_data_to_file(&config, lang) {
         eprintln!("Error writing file: {}", e);
     }
@@ -129,6 +131,12 @@ fn main() {
         .manage(config)
         .plugin(tauri_plugin_sql::Builder::default().build())
         .plugin(ThemePlugin::init(ctx.config_mut()))
+        .plugin(
+            tauri_plugin_log::Builder::default()
+            .targets([LogTarget::LogDir, LogTarget::Stdout, LogTarget::Webview])
+            .level(LevelFilter::Info)
+            .build()
+        )
         .invoke_handler(generate_handler![greet, change_menu_language])
         .run(ctx)
         .expect("error while running tauri application");

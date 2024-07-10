@@ -15,11 +15,16 @@ tauri = { version = "1", features = [ "process-all", "os-all", "dialog-all", "pa
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-theme = "0.2.0"
+log = "0.4.21"
 
 [dependencies.tauri-plugin-sql]
 git = "https://github.com/tauri-apps/plugins-workspace"
 branch = "v1"
 features = ["sqlite"]
+
+[dependencies.tauri-plugin-log]
+git = "https://github.com/tauri-apps/plugins-workspace"
+branch = "v1"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

@@ -27,6 +27,7 @@ specifiers:
   react-i18next: ^13.3.1
   react-router-dom: ^6.23.1
   sass: ^1.77.4
+  tauri-plugin-log-api: github:tauri-apps/tauri-plugin-log#v1
   tauri-plugin-sql-api: github:tauri-apps/tauri-plugin-sql#v1
   typescript: ^5.0.2
   typescript-eslint: ^7.11.0
@@ -36,7 +37,8 @@ dependencies:
   '@tauri-apps/api': 1.5.6
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
-  tauri-plugin-sql-api: github.com/tauri-apps/tauri-plugin-sql/6a4a14c36b1ad49c9f468351706d104a54e0540c
+  tauri-plugin-log-api: github.com/tauri-apps/tauri-plugin-log/2bb26e22f7f7b4f164bad02f0ae4085796f77fff
+  tauri-plugin-sql-api: github.com/tauri-apps/tauri-plugin-sql/7ae8847ab1f2252e8b6f0fe44af215ac40664fd6
 
 devDependencies:
   '@ant-design/icons': 5.3.7_nnrd3gsncyragczmpvfhocinkq
@@ -1074,6 +1076,11 @@ packages:
 
   /@tauri-apps/api/1.5.6:
     resolution: {integrity: sha512-LH5ToovAHnDVe5Qa9f/+jW28I6DeMhos8bNDtBOmmnaDpPmJmYLyHdeDblAWWWYc7KKRDg9/66vMuKyq0WIeFA==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
+  /@tauri-apps/api/1.6.0:
+    resolution: {integrity: sha512-rqI++FWClU5I2UBp4HXFvl+sBWkdigBkxnpJDQUWttNyG7IZP4FwQGhTNL5EOw0vI8i6eSAJ5frLqO7n7jbJdg==}
     engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
@@ -4288,10 +4295,18 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/tauri-apps/tauri-plugin-sql/6a4a14c36b1ad49c9f468351706d104a54e0540c:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-sql/tar.gz/6a4a14c36b1ad49c9f468351706d104a54e0540c}
+  github.com/tauri-apps/tauri-plugin-log/2bb26e22f7f7b4f164bad02f0ae4085796f77fff:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-log/tar.gz/2bb26e22f7f7b4f164bad02f0ae4085796f77fff}
+    name: tauri-plugin-log-api
+    version: 0.0.0
+    dependencies:
+      '@tauri-apps/api': 1.6.0
+    dev: false
+
+  github.com/tauri-apps/tauri-plugin-sql/7ae8847ab1f2252e8b6f0fe44af215ac40664fd6:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-sql/tar.gz/7ae8847ab1f2252e8b6f0fe44af215ac40664fd6}
     name: tauri-plugin-sql-api
     version: 0.0.0
     dependencies:
-      '@tauri-apps/api': 1.5.6
+      '@tauri-apps/api': 1.6.0
     dev: false
