@@ -7,7 +7,7 @@ import GlobalContext from "@/context/global";
 import { menu as MENU_MAP } from "@/routes/index";
 import { ENV_MODE, IS_TAURI } from "@/utils/const";
 import { IconGithubLogo, IconLikeHeart } from "@douyinfe/semi-icons";
-import { IconImage, IconIntro } from "@douyinfe/semi-icons-lab";
+import { IconImage, IconIntro,IconSteps } from "@douyinfe/semi-icons-lab";
 import {
   Button,
   Image,
@@ -42,6 +42,11 @@ const XLayout = () => {
       text: t("imageSlicing"),
       icon: <IconImage />,
       des: t("imageSlicingDes"),
+    },
+    "/http": {
+      text: t("HTTP"),
+      icon: <IconSteps />,
+      des: t("httpDes"),
     },
   };
 

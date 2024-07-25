@@ -2,8 +2,10 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from '@/layout';
 import Home from "@/pages/home";
 import ImageSlicing from "@/pages/imageSlicing";
+import Http from '@/pages/http';
 
 
+// todo merge layout menuRouteMap
  export const menu = [
   {
     itemKey: "/",
@@ -12,6 +14,10 @@ import ImageSlicing from "@/pages/imageSlicing";
   {
     itemKey: "/imageSlicing",
     element: <ImageSlicing />
+  },
+  {
+    itemKey: "/http",
+    element: <Http />
   },
 ]
 

@@ -42,5 +42,6 @@
   "hideOthers": "隐藏其他",
   "unhide": "显示全部",
   "switchLanguage": "切换语言",
-  "Switching Language requires restarting the application. Do you want to continue?":"切换语言需要重启应用，是否继续？"
+  "Switching Language requires restarting the application. Do you want to continue?":"切换语言需要重启应用，是否继续？",
+  "httpDes":"展示 HTTP 请求 Demo"
 }

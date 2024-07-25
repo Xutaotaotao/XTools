@@ -11,7 +11,7 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = [ "process-all", "os-all", "dialog-all", "path-all", "fs-all", "shell-open"] }
+tauri = { version = "1", features = [ "http-all", "process-all", "os-all", "dialog-all", "path-all", "fs-all", "shell-open"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-theme = "0.2.0"

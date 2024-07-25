@@ -36,6 +36,15 @@
       },
       "process": {
         "all": true
+      },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": [
+          "http://localhost/*",
+          "https://something.else/*",
+          "https://hacker-news.firebaseio.com/*"
+        ]
       }
     },
     "windows": [
