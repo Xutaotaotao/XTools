@@ -42,8 +42,7 @@
         "request": true,
         "scope": [
           "http://localhost/*",
-          "https://something.else/*",
-          "https://hacker-news.firebaseio.com/*"
+          "http://jsonplaceholder.typicode.com/*"
         ]
       }
     },
