@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "Xutaotaotao <xutaotao852@hellobike.com>",
+  "author": "Xutaotaotao",
   "scripts": {
     "dev": "cross-env ENV=dev umi dev",
     "build": "umi build",
