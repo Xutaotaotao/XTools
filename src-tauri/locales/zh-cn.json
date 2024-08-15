@@ -43,5 +43,9 @@
   "unhide": "显示全部",
   "switchLanguage": "切换语言",
   "Switching Language requires restarting the application. Do you want to continue?":"切换语言需要重启应用，是否继续？",
-  "httpDes":"展示 HTTP 请求 Demo"
+  "httpDes":"展示 HTTP 请求 Demo",
+  "Initiate Get request test":"发起Get请求测试",
+  "Get request test returns data":"Get请求测试返回数据",
+  "Initiate Post request test":"发起Post请求测试",
+  "Post request test returns data":"Post请求测试返回数据"
 }

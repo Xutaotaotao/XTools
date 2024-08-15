@@ -6,11 +6,13 @@ import { Form, Radio, RadioGroup, Space } from "@douyinfe/semi-ui";
 import { Button, Col, Row, Spin, Upload, message } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
 import { useEffect, useRef, useState } from "react";
-import Draggable from "react-draggable";
+import Draggable, { DraggableData } from "react-draggable";
 import { downloadFileBase64List } from "@/bridge/index"
 import "./index.less";
 import { FileBase64List } from "@/type";
 import { useTranslation } from "react-i18next";
+import { UploadChangeParam } from "antd/es/upload";
+
 
 const { Dragger } = Upload;
 
@@ -83,21 +85,27 @@ const ImageSlicing = () => {
     setRadioGroupValue("");
   };
 
-  const filesChange = (info: any) => {
+  const filesChange = (info: UploadChangeParam<FileWithPreview>) => {
     const hasFile = fileList.find((file) => info.file.name === file.name);
     if (hasFile) {
       return;
     } else {
       setFileList([info.file]);
-      let reader = new FileReader();
-      reader.readAsDataURL(info.file.originFileObj);
-      reader.onload = function (e: any) {
-        setCurrentImg(e.target.result);
-      };
+      const reader = new FileReader();
+      if (info.file.originFileObj) {
+        reader.readAsDataURL(info.file.originFileObj);
+        reader.onload = function (e: ProgressEvent<FileReader>) {
+          const result = e.target?.result;
+          if (typeof result === "string") {
+            setCurrentImg(result);
+          }
+        };
+      }
+      
     }
   };
 
-  const handleDragOnStop = (data: any, key: string) => {
+  const handleDragOnStop = (data:DraggableData, key:string) => {
     const { x, y } = data;
     setDraggableListData(
       draggableListData.map((item) => {
@@ -112,7 +120,7 @@ const ImageSlicing = () => {
     );
   };
 
-  const radioGroupOnChange = (e: any) => {
+  const radioGroupOnChange = (e:any) => {
     const { x, y } = RadioGroupList[e.target.value];
     setCustomX(x);
     setCustomY(y);
@@ -377,7 +385,7 @@ const ImageSlicing = () => {
                       defaultPosition={defaultPosition}
                       handle={`.${handle}`}
                       key={key}
-                      onStop={(_e, data) => {
+                      onStop={(_e, data: DraggableData) => {
                         handleDragOnStop(data, key);
                       }}
                     >

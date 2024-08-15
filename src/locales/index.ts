@@ -1,7 +1,7 @@
 import i18n from "i18next"; 
 import { initReactI18next } from 'react-i18next';
-import enUsTrans from "./en-us.json";
-import zhCnTrans from "./zh-cn.json";
+import enUsTrans from "../../src-tauri/locales/en-us.json";
+import zhCnTrans from "../../src-tauri/locales/zh-cn.json";
 
 i18n   
 .use(initReactI18next)

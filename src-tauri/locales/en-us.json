@@ -43,5 +43,9 @@
   "unhide": "Show All",
   "switchLanguage": "Switch Language",
   "Switching Language requires restarting the application. Do you want to continue?":"Switching language requires restarting the application. Do you want to continue?",
-  "httpDes":"Show http request demo"
+  "httpDes":"Show http request demo",
+  "Initiate Get request test":"Initiate Get request test",
+  "Get request test returns data":"Get request test returns data",
+  "Initiate Post request test":"Initiate Post request test",
+  "Post request test returns data":"Post request test returns data"
 }

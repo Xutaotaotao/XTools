@@ -1,7 +1,7 @@
 import { Button, Modal } from "@douyinfe/semi-ui";
 import { TranslationOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import i18n from "../../../src-tauri/locales/index";
+import i18n from "@/locales/index";
 import { getStore, setStore } from "@/bridge";
 import { relaunch } from "@tauri-apps/api/process";
 import { invoke } from "@tauri-apps/api/tauri";
